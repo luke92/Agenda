@@ -51,7 +51,8 @@ public class Controlador implements ActionListener
 		{
 			if(e.getSource() == this.vista.getBtnAgregar())
 			{
-				this.ventanaPersona = new VentanaPersona(this);
+				if(this.ventanaPersona == null) //Verificar si se abrio alguna vez la ventana para agregar persona
+					this.ventanaPersona = new VentanaPersona(this);
 			}
 			else if(e.getSource() == this.vista.getBtnBorrar())
 			{
@@ -62,7 +63,6 @@ public class Controlador implements ActionListener
 				}
 				
 				this.llenarTabla();
-				
 			}
 			else if(e.getSource() == this.vista.getBtnReporte())
 			{				
@@ -75,7 +75,30 @@ public class Controlador implements ActionListener
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
+				this.ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
 			}
+			else if(e.getSource() == this.vista.getBtnEditar())
+			{
+				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+				if(filas_seleccionadas.length == 1)
+				{
+					for (int fila:filas_seleccionadas)
+					{
+						this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
+					}
+				}
+				
+				this.llenarTabla();
+			}
+			
+			//Evitar abrir multiples instancias del boton agregar.
+			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter()
+			{
+			    @Override
+			    public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+			    {
+			        ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
+			    }
+			});
 		}
-
 }
