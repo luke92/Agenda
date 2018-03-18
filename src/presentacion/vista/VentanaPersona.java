@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dto.PersonaDTO;
 import presentacion.controlador.Controlador;
 
 public class VentanaPersona extends JFrame 
@@ -17,9 +18,11 @@ public class VentanaPersona extends JFrame
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JButton btnAgregarPersona;
+	private JButton btnEditarPersona;
 	private Controlador controlador;
+	private int idPersona;
 
-	public VentanaPersona(Controlador controlador) 
+	public VentanaPersona(Controlador controlador, String accion, PersonaDTO persona) 
 	{
 		super();
 		this.controlador = controlador;
@@ -54,12 +57,39 @@ public class VentanaPersona extends JFrame
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
+		if(accion == "Agregar")
+			inicializarAgregar(panel);
+		else inicializarEditar(panel,persona);
+		
+		this.setVisible(true);
+	}
+	
+	private void inicializarAgregar(JPanel panel)
+	{	
+		this.setTitle("Agregar Persona");
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.addActionListener(this.controlador);
 		btnAgregarPersona.setBounds(208, 92, 89, 23);
 		panel.add(btnAgregarPersona);
+	}
+	
+	private void inicializarEditar(JPanel panel, PersonaDTO persona)
+	{
+		this.setTitle("Editar Persona");
 		
-		this.setVisible(true);
+		idPersona = persona.getIdPersona();
+		txtNombre.setText(persona.getNombre());
+		txtTelefono.setText(persona.getTelefono());
+		
+		btnEditarPersona = new JButton("Actualizar");
+		btnEditarPersona.addActionListener(this.controlador);
+		btnEditarPersona.setBounds(208, 92, 95, 23);
+		panel.add(btnEditarPersona);
+	}
+	
+	public int getIdPersona()
+	{
+		return idPersona;
 	}
 	
 	public JTextField getTxtNombre() 
@@ -75,6 +105,11 @@ public class VentanaPersona extends JFrame
 	public JButton getBtnAgregarPersona() 
 	{
 		return btnAgregarPersona;
+	}
+	
+	public JButton getBtnEditarPersona() 
+	{
+		return btnEditarPersona;
 	}
 	
 }

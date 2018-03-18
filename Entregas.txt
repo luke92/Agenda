@@ -1,0 +1,49 @@
+ENTREGAS DE TP INICIAL.
+
+(1 punto) 16/3 -> Crear repositorio. GITLAB. Dar acceso a tus compañeros. y mostrar un log de un commit (PDF). Caso practico (Electrodomesticos) -> Relevamiento de requerimientos y casos de uso, o user stories con condicion de satisfacción (criterio de acepctación).
+
+Aqui debe subir la primer entrega del tp inicial: un formulario de la actividad realizada en el repositorio svn/git hasta la fecha (puede ser un pdf),
+
+(2 puntos) 20/3  2da entrega. Agregar datos de contacto, localidades y tipo de contacto debe ser un 
+
+drop down list. Hacer ABM de contactos, tipo de contacto, localidades.
+Usar interfaz que ya esta.
+
+Entrega 2 del tp inicial - suba el proyecto, sin binarios.
+Para esta entrega deben agregar la función "Editar Contacto". Deben subir el proyecto con los cambios necesarios. Además, el mismo martes 20/03, cada grupo debe mostrar andando esta nueva funcionalidad. Para esto, pueden llevar una notebook o tener una máquina virtual con todo lo necesario para ejecutar el proyecto, o la opción que deseen según crean conveniente, siempre y cuando pueda verse que ejecutan el proyecto "en vivo".
+Para esta entrega pueden ejecutar el proyecto directamente desde Eclipse (o el IDE que utilicen).
+En esta oportunidad se les solicita que agreguen al ejemplo básico
+brindado la posibilidad de agregar a los datos de un contacto su domicilio (calle,
+altura, piso, depto y localidad), su dirección de email, su fecha de cumpleaños, y
+una etiqueta que represente el tipo de contacto (trabajo, familia, amigos, etc). El
+tipo de contacto y la localidad deben poder elegirse de una lista desplegable y debe
+realizarle el correspondiente ABM. Desde ya, agreguen la funcionalidad de Editar
+un contacto.
+
+
+3er entrega 27/3: Reporte de datos (grafico, etc)
+
+Entrega reporte nuevo con proyecto funcional.
+Recuerden que deben agrupar de acuerdo a lo que se le pidió a cada grupo. En el reporte, cada agrupación debe indicar la cantidad de registros por grupo y, en el gráfico, debe mostrarse el porcentaje de cada grupo.
+
+
+4ta entrega: 3/4 Instalador NSIS (Instalador completo). Hacer instalación silenciosa (con comandos). Se debe poder configurar usuario y clave.
+
+Para esta entrega debe subir un archivo comprimido que posea:
+- Script del instalador (archivo .nsi)
+- Jar de la aplicación exportada desde Eclipse
+- Ícono de la aplicación
+- Archivos o carpetas extras que utilice el instalador
+- Código fuente del proyecto Java
+Recomendación: subir un archivo de texto que posea el link donde esté alojado lo anterior (Por ejemplo, en Google Drive).
+Recuerde que el día de la entrega en clases debe entregar un instalador que permita instalar el software por un usuario final en un sistema con Windows 7. Debe instalar también el software necesario para la ejecución del sistema: JRE y MySQL. Estos, idealmente, deben instalarse de manera silenciosa, es decir, no debe mostrarse la ventana de instalación de estos programas (evitando que el usuario deba hacer "siguiente --> siguiente --> ..." para instarlos).
+El instalador debe mostrarse sobre una máquina virtual que posea únicamente el SO instalado. El instalador debe permitir instalar la aplicación en cualquier destino de la PC.
+La aplicación debe contener todas las funcionalidades de las entregas anteriores. Además, debe permitir configurar los datos de conexión a la base:
+-IP
+-Puerto
+-Usuario
+-Contraseña
+Estos datos deben pedirse únicamente al abrir la aplicación por primera vez o, si no puede conectarse, debe mostrar un mensaje de error y una ventana para ingresar esos datos, por si el usuario ingresó algo incorrecto o se modificó algo en la base de datos. Es decir, si completo los datos de conexión correctamente y luego cierro la aplicación, al volver a abrirla NO vuelve a mostrar la ventana para ingresar los datos de conexión, a menos que exista un error al conectarse).
+Idealmente deben agregar un menú a la aplicación que permita modificar esos datos si se desea. Caso contrario, mínimamente se debe poder modificar esos datos desde un archivo de texto manualmente que sea leído por la aplicación.
+En caso que se cumpla con todo lo ideal, se obtienen los 4 puntos.
+Puede llevar su propia notebook o un disco externo con la imagen virtual del SO para utilizar las notebooks del aula.

@@ -16,6 +16,7 @@ public class PersonaDAOImpl implements PersonaDAO
 	private static final String update = "UPDATE personas SET nombre = ?, telefono = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
+	private static final String getById = "SELECT * FROM personas WHERE idPersona = ?";
 	private static final Conexion conexion = Conexion.getConexion();
 	
 	public boolean insert(PersonaDTO persona)
@@ -73,7 +74,7 @@ public class PersonaDAOImpl implements PersonaDAO
 			statement = conexion.getSQLConexion().prepareStatement(delete);
 			statement.setString(1, Integer.toString(persona_a_eliminar.getIdPersona()));
 			chequeoUpdate = statement.executeUpdate();
-			if(chequeoUpdate > 0) //Si se ejecutÃ³ devuelvo true
+			if(chequeoUpdate > 0) //Si se ejecutá devuelvo true
 				return true;
 		} 
 		catch (SQLException e) 
@@ -111,6 +112,33 @@ public class PersonaDAOImpl implements PersonaDAO
 			conexion.cerrarConexion();
 		}
 		return personas;
+	}
+
+	public PersonaDTO getById(PersonaDTO persona_a_obtener) 
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		PersonaDTO persona = null;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(getById);
+			statement.setString(1, Integer.toString(persona_a_obtener.getIdPersona()));
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
+		return persona;
 	}
 	
 }

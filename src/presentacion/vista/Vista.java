@@ -66,6 +66,8 @@ public class Vista
 		btnReporte = new JButton("Reporte");
 		btnReporte.setBounds(307, 228, 89, 23);
 		panel.add(btnReporte);
+		
+		frame.setTitle("TP Inicial - AGENDA");
 	}
 	
 	public void show()

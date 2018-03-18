@@ -52,19 +52,38 @@ public class Controlador implements ActionListener
 			if(e.getSource() == this.vista.getBtnAgregar())
 			{
 				if(this.ventanaPersona == null) //Verificar si se abrio alguna vez la ventana para agregar persona
-					this.ventanaPersona = new VentanaPersona(this);
+					this.ventanaPersona = new VentanaPersona(this,"Agregar",null);
 				else
-					this.ventanaPersona.toFront();
+					this.ventanaPersona.toFront(); //Si la ventana esta atras y aprieto el boton Agregar se muestra la ventana.
+			}
+			else if(e.getSource() == this.vista.getBtnEditar())
+			{
+				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+				if(filas_seleccionadas.length == 1)
+				{					
+						if(this.ventanaPersona == null)
+						{
+							PersonaDTO persona_a_obtener = this.agenda.obtenerPersona(this.personas_en_tabla.get(filas_seleccionadas[0]));
+							this.ventanaPersona = new VentanaPersona(this,"Editar",persona_a_obtener);
+						}
+						else
+							this.ventanaPersona.toFront();
+				}
 			}
 			else if(e.getSource() == this.vista.getBtnBorrar())
 			{
-				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-				for (int fila:filas_seleccionadas)
+				if(this.ventanaPersona == null)
 				{
-					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
+					int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+					for (int fila:filas_seleccionadas)
+					{
+						this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
+					}
+					
+					this.llenarTabla();
 				}
-				
-				this.llenarTabla();
+				else
+					this.ventanaPersona.toFront();
 			}
 			else if(e.getSource() == this.vista.getBtnReporte())
 			{				
@@ -79,18 +98,13 @@ public class Controlador implements ActionListener
 				this.ventanaPersona.dispose();
 				this.ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
 			}
-			else if(e.getSource() == this.vista.getBtnEditar())
+			else if(e.getSource() == this.ventanaPersona.getBtnEditarPersona())
 			{
-				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-				if(filas_seleccionadas.length == 1)
-				{
-					for (int fila:filas_seleccionadas)
-					{
-						this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
-					}
-				}
-				
+				PersonaDTO editarPersona = new PersonaDTO(this.ventanaPersona.getIdPersona(),this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText());
+				this.agenda.editarPersona(editarPersona);
 				this.llenarTabla();
+				this.ventanaPersona.dispose();
+				this.ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
 			}
 			
 			//Evitar abrir multiples instancias del boton agregar.
