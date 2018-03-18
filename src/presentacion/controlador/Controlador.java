@@ -53,6 +53,8 @@ public class Controlador implements ActionListener
 			{
 				if(this.ventanaPersona == null) //Verificar si se abrio alguna vez la ventana para agregar persona
 					this.ventanaPersona = new VentanaPersona(this);
+				else
+					this.ventanaPersona.toFront();
 			}
 			else if(e.getSource() == this.vista.getBtnBorrar())
 			{
@@ -92,13 +94,16 @@ public class Controlador implements ActionListener
 			}
 			
 			//Evitar abrir multiples instancias del boton agregar.
-			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter()
+			if(this.ventanaPersona != null)
 			{
-			    @Override
-			    public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-			    {
-			        ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
-			    }
-			});
+				this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter()
+				{
+				    @Override
+				    public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+				    {
+				        ventanaPersona = null; //Se habilita abrir la ventana de agregar persona luego de que la misma se cierra
+				    }
+				});
+			}
 		}
 }
