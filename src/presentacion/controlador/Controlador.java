@@ -20,6 +20,7 @@ public class Controlador implements ActionListener
 		{
 			this.vista = vista;
 			this.vista.getBtnAgregar().addActionListener(this);
+			this.vista.getBtnEditar().addActionListener(this);
 			this.vista.getBtnBorrar().addActionListener(this);
 			this.vista.getBtnReporte().addActionListener(this);
 			this.agenda = agenda;

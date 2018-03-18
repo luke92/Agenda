@@ -13,6 +13,7 @@ import dto.PersonaDTO;
 public class PersonaDAOImpl implements PersonaDAO
 {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono) VALUES(?, ?, ?)";
+	private static final String update = "UPDATE personas SET nombre = ?, telefono = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	private static final Conexion conexion = Conexion.getConexion();
@@ -27,6 +28,29 @@ public class PersonaDAOImpl implements PersonaDAO
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
 			if(statement.executeUpdate() > 0) //Si se ejecutÃ³ devuelvo true
+				return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
+		return false;
+	}
+	
+	public boolean update(PersonaDTO persona) 
+	{
+		PreparedStatement statement;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setInt(3, persona.getIdPersona());
+			statement.setString(1, persona.getNombre());
+			statement.setString(2, persona.getTelefono());
+			if(statement.executeUpdate() > 0) //Si se ejecutá devuelvo true
 				return true;
 		} 
 		catch (SQLException e) 
@@ -88,4 +112,5 @@ public class PersonaDAOImpl implements PersonaDAO
 		}
 		return personas;
 	}
+	
 }
