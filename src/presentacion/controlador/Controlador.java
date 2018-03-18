@@ -7,6 +7,7 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import util.Fechas;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener
@@ -41,7 +42,7 @@ public class Controlador implements ActionListener
 			this.personas_en_tabla = agenda.obtenerPersonas();
 			for (int i = 0; i < this.personas_en_tabla.size(); i ++)
 			{
-				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono()};
+				Object[] fila = {this.personas_en_tabla.get(i).getNombre(), this.personas_en_tabla.get(i).getTelefono(),this.personas_en_tabla.get(i).getEmail(),Fechas.Fecha_a_String(this.personas_en_tabla.get(i).getFechaNacimiento())};
 				this.vista.getModelPersonas().addRow(fila);
 			}
 			this.vista.show();
@@ -92,7 +93,7 @@ public class Controlador implements ActionListener
 			}
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona())
 			{
-				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),null,null);
+				PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
@@ -100,7 +101,7 @@ public class Controlador implements ActionListener
 			}
 			else if(e.getSource() == this.ventanaPersona.getBtnEditarPersona())
 			{
-				PersonaDTO editarPersona = new PersonaDTO(this.ventanaPersona.getIdPersona(),this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),null,null);
+				PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
 				this.agenda.editarPersona(editarPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();

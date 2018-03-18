@@ -1,6 +1,9 @@
 package dto;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
+import java.util.Date;
+
+import util.Fechas;
 
 public class PersonaDTO 
 {
@@ -8,14 +11,26 @@ public class PersonaDTO
 	private String nombre;
 	private String telefono;
 	private String email;
-	private GregorianCalendar fechaNacimiento;
+	private Calendar fechaNacimiento;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, GregorianCalendar fechaNacimiento)
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.setEmail(email);
+		this.email = email;
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento)
+	{
+		this.idPersona = idPersona;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.email = email;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaNacimiento);
+		this.fechaNacimiento = cal;
 	}
 	
 	public int getIdPersona() 
@@ -56,5 +71,15 @@ public class PersonaDTO
 	public void setEmail(String email) 
 	{
 		this.email = email;
+	}
+
+	public Calendar getFechaNacimiento() 
+	{
+		return fechaNacimiento;
+	}
+	
+	public void setFechaNacimiento(Calendar fechaNacimiento) 
+	{
+		this.fechaNacimiento = fechaNacimiento;
 	}
 }

@@ -1,6 +1,8 @@
 package presentacion.vista;
 
 
+import java.util.Calendar;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,17 +12,21 @@ import javax.swing.border.EmptyBorder;
 
 import dto.PersonaDTO;
 import presentacion.controlador.Controlador;
+import util.Fechas;
 
 public class VentanaPersona extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private int idPersona;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
+	private JTextField txtEmail;
+	private JTextField txtFechaNacimiento;
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private Controlador controlador;
-	private int idPersona;
+	
 
 	public VentanaPersona(Controlador controlador, String accion, PersonaDTO persona) 
 	{
@@ -28,14 +34,14 @@ public class VentanaPersona extends JFrame
 		this.controlador = controlador;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 343, 183);
+		setBounds(100, 100, 343, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 307, 123);
+		panel.setBounds(10, 11, 307, 290);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -47,6 +53,16 @@ public class VentanaPersona extends JFrame
 		lblTelfono.setBounds(10, 52, 113, 14);
 		panel.add(lblTelfono);
 		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(10, 93, 113, 14);
+		panel.add(lblEmail);
+		
+		JLabel lblFechaNacimiento = new JLabel("Cumplea\u00f1os");
+		lblFechaNacimiento.setBounds(10, 134, 113, 14);
+		panel.add(lblFechaNacimiento);
+		
+		idPersona = 0;
+		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 8, 164, 20);
 		panel.add(txtNombre);
@@ -56,6 +72,16 @@ public class VentanaPersona extends JFrame
 		txtTelefono.setBounds(133, 49, 164, 20);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
+		
+		txtEmail = new JTextField();
+		txtEmail.setBounds(133, 90, 164, 20);
+		panel.add(txtEmail);
+		txtEmail.setColumns(10);
+		
+		txtFechaNacimiento = new JTextField();
+		txtFechaNacimiento.setBounds(133, 131, 164, 20);
+		panel.add(txtFechaNacimiento);
+		txtFechaNacimiento.setColumns(10);
 		
 		if(accion == "Agregar")
 			inicializarAgregar(panel);
@@ -69,7 +95,7 @@ public class VentanaPersona extends JFrame
 		this.setTitle("Agregar Persona");
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.addActionListener(this.controlador);
-		btnAgregarPersona.setBounds(208, 92, 89, 23);
+		btnAgregarPersona.setBounds(208, 200, 89, 23);
 		panel.add(btnAgregarPersona);
 	}
 	
@@ -83,7 +109,7 @@ public class VentanaPersona extends JFrame
 		
 		btnEditarPersona = new JButton("Actualizar");
 		btnEditarPersona.addActionListener(this.controlador);
-		btnEditarPersona.setBounds(208, 92, 95, 23);
+		btnEditarPersona.setBounds(208, 200, 95, 23);
 		panel.add(btnEditarPersona);
 	}
 	
@@ -101,6 +127,16 @@ public class VentanaPersona extends JFrame
 	{
 		return txtTelefono;
 	}
+	
+	public JTextField getTxtEmail() 
+	{
+		return txtEmail;
+	}
+	
+	public JTextField getTxtFechaNacimiento() 
+	{
+		return txtFechaNacimiento;
+	}
 
 	public JButton getBtnAgregarPersona() 
 	{
@@ -110,6 +146,14 @@ public class VentanaPersona extends JFrame
 	public JButton getBtnEditarPersona() 
 	{
 		return btnEditarPersona;
+	}
+	
+	public PersonaDTO getDatosPersona()
+	{
+		String fecha = this.getTxtFechaNacimiento().getText();
+		Calendar cal = Fechas.String_a_Fecha(fecha);
+		PersonaDTO persona = new PersonaDTO(idPersona,this.getTxtNombre().getText(), this.getTxtTelefono().getText(),this.getTxtEmail().getText(),cal);
+		return persona;
 	}
 	
 }

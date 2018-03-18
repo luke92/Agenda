@@ -8,12 +8,13 @@ import java.util.List;
 
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
+import util.Fechas;
 import dto.PersonaDTO;
 
 public class PersonaDAOImpl implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono) VALUES(?, ?, ?)";
-	private static final String update = "UPDATE personas SET nombre = ?, telefono = ? WHERE idPersona = ?";
+	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fechanacimiento) VALUES(?, ?, ?, ?, ?)";
+	private static final String update = "UPDATE personas SET nombre = ?, telefono = ?, email = ?, fechanacimiento = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	private static final String readall = "SELECT * FROM personas";
 	private static final String getById = "SELECT * FROM personas WHERE idPersona = ?";
@@ -28,6 +29,8 @@ public class PersonaDAOImpl implements PersonaDAO
 			statement.setInt(1, persona.getIdPersona());
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
+			statement.setString(4, persona.getEmail());
+			statement.setString(5, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
 			if(statement.executeUpdate() > 0) //Si se ejecutó devuelvo true
 				return true;
 		} 
@@ -100,7 +103,7 @@ public class PersonaDAOImpl implements PersonaDAO
 			
 			while(resultSet.next())
 			{
-				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),null,null));
+				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),resultSet.getString("Email"),resultSet.getDate("FechaNacimiento")));
 			}
 		} 
 		catch (SQLException e) 
@@ -127,7 +130,7 @@ public class PersonaDAOImpl implements PersonaDAO
 			
 			while(resultSet.next())
 			{
-				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),null,null);
+				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),resultSet.getString("Email"),resultSet.getDate("FechaNacimiento"));
 			}
 		} 
 		catch (SQLException e) 
