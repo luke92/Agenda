@@ -92,7 +92,7 @@ public class Controlador implements ActionListener
 			}
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona())
 			{
-				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText());
+				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),null,null);
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
@@ -100,7 +100,7 @@ public class Controlador implements ActionListener
 			}
 			else if(e.getSource() == this.ventanaPersona.getBtnEditarPersona())
 			{
-				PersonaDTO editarPersona = new PersonaDTO(this.ventanaPersona.getIdPersona(),this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText());
+				PersonaDTO editarPersona = new PersonaDTO(this.ventanaPersona.getIdPersona(),this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),null,null);
 				this.agenda.editarPersona(editarPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();

@@ -100,7 +100,7 @@ public class PersonaDAOImpl implements PersonaDAO
 			
 			while(resultSet.next())
 			{
-				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono")));
+				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),null,null));
 			}
 		} 
 		catch (SQLException e) 
@@ -127,7 +127,7 @@ public class PersonaDAOImpl implements PersonaDAO
 			
 			while(resultSet.next())
 			{
-				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"));
+				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),null,null);
 			}
 		} 
 		catch (SQLException e) 
