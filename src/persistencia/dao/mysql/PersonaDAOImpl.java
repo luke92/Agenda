@@ -18,8 +18,8 @@ public class PersonaDAOImpl implements PersonaDAO
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fechanacimiento, calle, altura, piso, depto, idLocalidad, idTipoContacto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String update = "UPDATE personas SET nombre = ?, telefono = ?, email = ?, fechanacimiento = ?, calle = ?, altura = ?, piso = ?, depto = ?, idLocalidad = ?, idTipoContacto = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String readall = "SELECT * FROM personas";
-	private static final String getById = "SELECT * FROM personas WHERE idPersona = ?";
+	//private static final String readall = "SELECT * FROM personas";
+	//private static final String getById = "SELECT * FROM personas WHERE idPersona = ?";
 	private static final Conexion conexion = Conexion.getConexion();
 	private static final String readAllWithJoins = 
 			"SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "+ 
@@ -158,7 +158,7 @@ public class PersonaDAOImpl implements PersonaDAO
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(getByIdWithJoins);
-			statement.setString(1, Integer.toString(persona_a_obtener.getIdPersona()));
+			statement.setInt(1, persona_a_obtener.getIdPersona());
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next())

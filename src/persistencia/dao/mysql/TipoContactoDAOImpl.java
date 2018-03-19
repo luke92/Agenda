@@ -6,28 +6,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.LocalidadDTO;
+import dto.TipoContactoDTO;
 import persistencia.conexion.Conexion;
-import persistencia.dao.interfaz.LocalidadDAO;
+import persistencia.dao.interfaz.TipoContactoDAO;
 
-public class LocalidadDAOImpl implements LocalidadDAO
+public class TipoContactoDAOImpl implements TipoContactoDAO 
 {
-	
-	private static final String insert = "INSERT INTO localidades(idLocalidad, nombre) VALUES(?, ?)";
-	private static final String update = "UPDATE localidades SET nombre = ? WHERE idLocalidad = ?";
-	private static final String delete = "DELETE FROM localidades WHERE idLocalidad = ?";
-	private static final String readall = "SELECT * FROM localidades";
-	private static final String getById = "SELECT * FROM localidades WHERE idLocalidad = ?";
+	private static final String insert = "INSERT INTO tipoContactos (idTipoContacto, nombre) VALUES(?, ?)";
+	private static final String update = "UPDATE tipoContactos SET nombre = ? WHERE idTipoContacto = ?";
+	private static final String delete = "DELETE FROM tipoContactos WHERE idTipoContacto = ?";
+	private static final String readall = "SELECT * FROM tipoContactos";
+	private static final String getById = "SELECT * FROM tipoContactos WHERE idTipoContacto = ?";
 	private static final Conexion conexion = Conexion.getConexion();
 	
-	public boolean update(LocalidadDTO localidad_a_editar) 
+	public boolean update(TipoContactoDTO tipoContacto_a_editar) 
 	{
 		PreparedStatement statement;
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(update);
-			statement.setInt(2, localidad_a_editar.getIdLocalidad());
-			statement.setString(1, localidad_a_editar.getNombre());
+			statement.setInt(2, tipoContacto_a_editar.getIdTipoContacto());
+			statement.setString(1, tipoContacto_a_editar.getNombre());
 			
 			if(statement.executeUpdate() > 0) //Si se ejecutó devuelvo true
 				return true;
@@ -43,15 +42,14 @@ public class LocalidadDAOImpl implements LocalidadDAO
 		return false;
 	}
 
-	
-	public boolean insert(LocalidadDTO localidad) 
+	public boolean insert(TipoContactoDTO tipoContacto) 
 	{
 		PreparedStatement statement;
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setInt(1, localidad.getIdLocalidad());
-			statement.setString(2, localidad.getNombre());
+			statement.setInt(1, tipoContacto.getIdTipoContacto());
+			statement.setString(2, tipoContacto.getNombre());
 			
 			if(statement.executeUpdate() > 0) //Si se ejecutó devuelvo true
 				return true;
@@ -67,15 +65,15 @@ public class LocalidadDAOImpl implements LocalidadDAO
 		return false;
 	}
 
-	
-	public boolean delete(LocalidadDTO localidad_a_eliminar) 
+	@Override
+	public boolean delete(TipoContactoDTO tipoContacto_a_eliminar) 
 	{
 		PreparedStatement statement;
 		int chequeoUpdate=0;
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(delete);
-			statement.setInt(1, localidad_a_eliminar.getIdLocalidad());
+			statement.setInt(1, tipoContacto_a_eliminar.getIdTipoContacto());
 			chequeoUpdate = statement.executeUpdate();
 			if(chequeoUpdate > 0) //Si se ejecut� devuelvo true
 				return true;
@@ -91,20 +89,20 @@ public class LocalidadDAOImpl implements LocalidadDAO
 		return false;
 	}
 
-	
-	public LocalidadDTO getById(LocalidadDTO localidad_a_obtener) 
+	@Override
+	public TipoContactoDTO getById(TipoContactoDTO tipoContacto_a_obtener) 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		LocalidadDTO localidad = null;
+		TipoContactoDTO tipoContacto = null;
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(getById);
-			statement.setInt(1, localidad_a_obtener.getIdLocalidad());
+			statement.setInt(1, tipoContacto_a_obtener.getIdTipoContacto());
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),resultSet.getString("nombre"));
+				tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),resultSet.getString("nombre"));
 			}
 		}
 		catch (SQLException e) 
@@ -115,14 +113,15 @@ public class LocalidadDAOImpl implements LocalidadDAO
 		{
 			conexion.cerrarConexion();
 		}
-		return localidad;
+		return tipoContacto;
 	}
 
-	public List<LocalidadDTO> readAll() 
+	@Override
+	public List<TipoContactoDTO> readAll() 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<LocalidadDTO> localidades = new ArrayList<LocalidadDTO>();
+		ArrayList<TipoContactoDTO> tipoContactos = new ArrayList<TipoContactoDTO>();
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
@@ -130,8 +129,8 @@ public class LocalidadDAOImpl implements LocalidadDAO
 			
 			while(resultSet.next())
 			{
-				LocalidadDTO localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),resultSet.getString("nombre"));
-				localidades.add(localidad);
+				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),resultSet.getString("nombre"));
+				tipoContactos.add(tipoContacto);
 			}
 		} 
 		catch (SQLException e) 
@@ -142,7 +141,7 @@ public class LocalidadDAOImpl implements LocalidadDAO
 		{
 			conexion.cerrarConexion();
 		}
-		return localidades;
+		return tipoContactos;
 	}
 
 }
