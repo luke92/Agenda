@@ -51,9 +51,12 @@ public class PersonaDAOImpl implements PersonaDAO
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(update);
-			statement.setInt(3, persona.getIdPersona());
+			statement.setInt(5, persona.getIdPersona());
 			statement.setString(1, persona.getNombre());
 			statement.setString(2, persona.getTelefono());
+			statement.setString(3, persona.getEmail());
+			statement.setString(4, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
+			
 			if(statement.executeUpdate() > 0) //Si se ejecutá devuelvo true
 				return true;
 		} 

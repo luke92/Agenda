@@ -24,11 +24,11 @@ public class VentanaPersona extends JFrame
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
-	private JTextField txtFechaNacimiento;
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private Controlador controlador;
 	private JDatePickerImpl datePicker;
+	private JPanel pnlDatePicker;
 	
 	public VentanaPersona(Controlador controlador, String accion, PersonaDTO persona) 
 	{
@@ -80,16 +80,10 @@ public class VentanaPersona extends JFrame
 		panel.add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		txtFechaNacimiento = new JTextField();
-		txtFechaNacimiento.setBounds(133, 131, 164, 20);
-		//panel.add(txtFechaNacimiento);
-		txtFechaNacimiento.setColumns(10);
-		
-		JPanel pnlDatePicker = new JPanel();
+		pnlDatePicker = new JPanel();
 		pnlDatePicker.setBounds(90, 125, 250, 40);
 		panel.add(pnlDatePicker);
-		datePicker = VentanaCalendario.getPickerToday();
-		pnlDatePicker.add(datePicker);
+		
 		
 		if(accion == "Agregar")
 			inicializarAgregar(panel);
@@ -101,9 +95,16 @@ public class VentanaPersona extends JFrame
 	private void inicializarAgregar(JPanel panel)
 	{	
 		this.setTitle("Agregar Persona");
+		
+		datePicker = VentanaCalendario.getPickerToday();
+		pnlDatePicker.add(datePicker);
+		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.addActionListener(this.controlador);
 		btnAgregarPersona.setBounds(208, 200, 89, 23);
+		
+		
+		
 		panel.add(btnAgregarPersona);
 	}
 	
@@ -114,6 +115,9 @@ public class VentanaPersona extends JFrame
 		idPersona = persona.getIdPersona();
 		txtNombre.setText(persona.getNombre());
 		txtTelefono.setText(persona.getTelefono());
+		txtEmail.setText(persona.getEmail());
+		datePicker = VentanaCalendario.getPickerDate(persona.getFechaNacimiento());
+		pnlDatePicker.add(datePicker);
 		
 		btnEditarPersona = new JButton("Actualizar");
 		btnEditarPersona.addActionListener(this.controlador);
@@ -139,11 +143,6 @@ public class VentanaPersona extends JFrame
 	public JTextField getTxtEmail() 
 	{
 		return txtEmail;
-	}
-	
-	public JTextField getTxtFechaNacimiento() 
-	{
-		return txtFechaNacimiento;
 	}
 
 	public JButton getBtnAgregarPersona() 
