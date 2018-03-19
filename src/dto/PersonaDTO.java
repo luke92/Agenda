@@ -10,17 +10,31 @@ public class PersonaDTO
 	private String telefono;
 	private String email;
 	private Calendar fechaNacimiento;
-
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento)
+	private String calle;
+	private int altura;
+	private int piso;
+	private String depto;
+	private LocalidadDTO localidad;
+	private TipoContactoDTO tipoContacto;
+	
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento,
+			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) 
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
+		this.calle = calle;
+		this.altura = altura;
+		this.piso = piso;
+		this.depto = depto;
+		this.localidad = localidad;
+		this.tipoContacto = tipoContacto;
 	}
-	
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento)
+
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento,
+			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto)
 	{
 		this.idPersona = idPersona;
 		this.nombre = nombre;
@@ -29,6 +43,12 @@ public class PersonaDTO
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(fechaNacimiento);
 		this.fechaNacimiento = cal;
+		this.calle = calle;
+		this.altura = altura;
+		this.piso = piso;
+		this.depto = depto;
+		this.localidad = localidad;
+		this.tipoContacto = tipoContacto;
 	}
 	
 	public int getIdPersona() 
@@ -80,4 +100,66 @@ public class PersonaDTO
 	{
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
+	public String getCalle() 
+	{
+		return calle;
+	}
+
+	public void setCalle(String calle) 
+	{
+		this.calle = calle;
+	}
+
+	public int getAltura() 
+	{
+		return altura;
+	}
+
+	public void setAltura(int altura) 
+	{
+		this.altura = altura;
+	}
+
+	public int getPiso() 
+	{
+		return piso;
+	}
+
+	public void setPiso(int piso) 
+	{
+		this.piso = piso;
+	}
+
+	public String getDepto() 
+	{
+		return depto;
+	}
+
+	public void setDepto(String depto) 
+	{
+		this.depto = depto;
+	}
+
+	public LocalidadDTO getLocalidad() 
+	{
+		return localidad;
+	}
+
+	public void setLocalidad(LocalidadDTO localidad) 
+	{
+		this.localidad = localidad;
+	}
+
+	public TipoContactoDTO getTipoContacto() 
+	{
+		return tipoContacto;
+	}
+
+	public void setTipoContacto(TipoContactoDTO tipoContacto) 
+	{
+		this.tipoContacto = tipoContacto;
+	}
+	
+	
 }

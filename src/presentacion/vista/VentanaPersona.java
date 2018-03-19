@@ -7,12 +7,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
+import dto.LocalidadDTO;
 import dto.PersonaDTO;
+import dto.TipoContactoDTO;
 import presentacion.controlador.Controlador;
 import util.Fechas;
 
@@ -27,8 +30,8 @@ public class VentanaPersona extends JFrame
 	private JDatePickerImpl datePicker;
 	private JPanel pnlDatePicker;
 	private JTextField txtCalle;
-	private JTextField txtAltura;
-	private JTextField txtPiso;
+	private JSpinner txtAltura;
+	private JSpinner txtPiso;
 	private JTextField txtDpto;
 	private JTextField txtLocalidad;
 	private JTextField txtTipoContacto;
@@ -120,15 +123,13 @@ public class VentanaPersona extends JFrame
 		panel.add(txtCalle);
 		txtCalle.setColumns(10);
 		
-		txtAltura = new JTextField();
+		txtAltura = new JSpinner();
 		txtAltura.setBounds(133, 207, 164, 20);
 		panel.add(txtAltura);
-		txtAltura.setColumns(10);
 		
-		txtPiso = new JTextField();
+		txtPiso = new JSpinner();
 		txtPiso.setBounds(133, 248, 164, 20);
 		panel.add(txtPiso);
-		txtPiso.setColumns(10);
 		
 		txtDpto = new JTextField();
 		txtDpto.setBounds(133, 289, 164, 20);
@@ -204,6 +205,26 @@ public class VentanaPersona extends JFrame
 	{
 		return txtEmail;
 	}
+	
+	public JTextField getTxtCalle() 
+	{
+		return txtCalle;
+	}
+
+	public JSpinner getTxtAltura() 
+	{
+		return txtAltura;
+	}
+
+	public JSpinner getTxtPiso() 
+	{
+		return txtPiso;
+	}
+
+	public JTextField getTxtDpto() 
+	{
+		return txtDpto;
+	}
 
 	public JButton getBtnAgregarPersona() 
 	{
@@ -219,7 +240,12 @@ public class VentanaPersona extends JFrame
 	{
 		String fecha = datePicker.getJFormattedTextField().getText().trim();
 		Calendar cal = Fechas.String_a_Fecha(fecha);
-		PersonaDTO persona = new PersonaDTO(idPersona,this.getTxtNombre().getText(), this.getTxtTelefono().getText(),this.getTxtEmail().getText(),cal);
+		LocalidadDTO localidad = new LocalidadDTO(1, "");
+		TipoContactoDTO tipoContacto = new TipoContactoDTO(1, "");
+		PersonaDTO persona = new PersonaDTO
+				(idPersona,this.getTxtNombre().getText(), this.getTxtTelefono().getText(),this.getTxtEmail().getText(),cal,
+				this.getTxtCalle().getText(),(Integer) this.getTxtAltura().getValue(),(Integer) this.getTxtPiso().getValue(),
+				this.getTxtDpto().getText(),localidad,tipoContacto);
 		return persona;
 	}
 	
