@@ -3,8 +3,6 @@ package dto;
 import java.util.Calendar;
 import java.util.Date;
 
-import util.Fechas;
-
 public class PersonaDTO 
 {
 	private int idPersona;

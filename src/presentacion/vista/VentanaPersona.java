@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.jdatepicker.impl.JDatePickerImpl;
+
 import dto.PersonaDTO;
 import presentacion.controlador.Controlador;
 import util.Fechas;
@@ -26,22 +28,22 @@ public class VentanaPersona extends JFrame
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private Controlador controlador;
+	private JDatePickerImpl datePicker;
 	
-
 	public VentanaPersona(Controlador controlador, String accion, PersonaDTO persona) 
 	{
 		super();
 		this.controlador = controlador;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 343, 300);
+		setBounds(100, 100, 350, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 307, 290);
+		panel.setBounds(10, 11, 340, 320);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -80,8 +82,14 @@ public class VentanaPersona extends JFrame
 		
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setBounds(133, 131, 164, 20);
-		panel.add(txtFechaNacimiento);
+		//panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
+		
+		JPanel pnlDatePicker = new JPanel();
+		pnlDatePicker.setBounds(90, 125, 250, 40);
+		panel.add(pnlDatePicker);
+		datePicker = VentanaCalendario.getPickerToday();
+		pnlDatePicker.add(datePicker);
 		
 		if(accion == "Agregar")
 			inicializarAgregar(panel);
@@ -150,7 +158,7 @@ public class VentanaPersona extends JFrame
 	
 	public PersonaDTO getDatosPersona()
 	{
-		String fecha = this.getTxtFechaNacimiento().getText();
+		String fecha = datePicker.getJFormattedTextField().getText().trim();
 		Calendar cal = Fechas.String_a_Fecha(fecha);
 		PersonaDTO persona = new PersonaDTO(idPersona,this.getTxtNombre().getText(), this.getTxtTelefono().getText(),this.getTxtEmail().getText(),cal);
 		return persona;
