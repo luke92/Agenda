@@ -1,5 +1,7 @@
 package presentacion.vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -12,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import dto.TipoContactoDTO;
 import persistencia.dao.mysql.TipoContactoDAOImpl;
 
-public class VistaTiposContacto 
+public class VistaTiposContacto implements ActionListener
 {
 	private JFrame frame;
 	private JTable tablaTiposContacto;
@@ -21,6 +23,7 @@ public class VistaTiposContacto
 	private JButton btnBorrar;
 	private DefaultTableModel modelTiposContacto;
 	private List<TipoContactoDTO> tiposContacto_en_tabla;
+	private VentanaTiposContacto ventanaTiposContacto;
 	private  String[] nombreColumnas = {"Descripcion"};
 
 	public VistaTiposContacto() 
@@ -28,7 +31,11 @@ public class VistaTiposContacto
 		super();
 		initialize();
 		tiposContacto_en_tabla = null;
+		this.getBtnAgregar().addActionListener(this);
+		this.getBtnBorrar().addActionListener(this);
+		this.getBtnEditar().addActionListener(this);
 		llenarTabla();
+		
 	}
 
 
@@ -95,7 +102,7 @@ public class VistaTiposContacto
 		return modelTiposContacto;
 	}
 	
-	public JTable getTablaPersonas()
+	public JTable getTablaTiposContacto()
 	{
 		return tablaTiposContacto;
 	}
@@ -121,5 +128,48 @@ public class VistaTiposContacto
 			};
 			this.getModelTiposContacto().addRow(fila);
 		}
+	}
+
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource() == this.getBtnAgregar())
+		{
+			this.ventanaTiposContacto = new VentanaTiposContacto(this,"Agregar",null);
+		}
+		else if(e.getSource() == this.getBtnEditar())
+		{
+			int[] filas_seleccionadas = this.getTablaTiposContacto().getSelectedRows();
+			if(filas_seleccionadas.length == 1)
+			{					
+					TipoContactoDTO tipoContacto_a_obtener = new TipoContactoDAOImpl().getById(this.tiposContacto_en_tabla.get(filas_seleccionadas[0]));
+					this.ventanaTiposContacto = new VentanaTiposContacto(this,"Editar",tipoContacto_a_obtener);
+			}
+		}
+		else if(e.getSource() == this.getBtnBorrar())
+		{
+			int[] filas_seleccionadas = this.getTablaTiposContacto().getSelectedRows();
+			for (int fila:filas_seleccionadas)
+			{
+				new TipoContactoDAOImpl().delete(this.tiposContacto_en_tabla.get(fila));
+			}
+				
+			this.llenarTabla();
+
+		}
+		else if(e.getSource() == this.ventanaTiposContacto.getBtnAgregarTipoContacto())
+		{
+			TipoContactoDTO nuevoTipoContacto = this.ventanaTiposContacto.getDatosTipoContacto();
+			new TipoContactoDAOImpl().insert(nuevoTipoContacto);
+			this.llenarTabla();
+			this.ventanaTiposContacto.dispose();
+		}
+		else if(e.getSource() == this.ventanaTiposContacto.getBtnEditarTipoContacto())
+		{
+			TipoContactoDTO editarTipoContacto = this.ventanaTiposContacto.getDatosTipoContacto();
+			new TipoContactoDAOImpl().update(editarTipoContacto);
+			this.llenarTabla();
+			this.ventanaTiposContacto.dispose();
+		}
+		
 	}
 }
