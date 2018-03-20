@@ -12,11 +12,11 @@ import persistencia.dao.interfaz.TipoContactoDAO;
 
 public class TipoContactoDAOImpl implements TipoContactoDAO 
 {
-	private static final String insert = "INSERT INTO tipoContactos (idTipoContacto, nombre) VALUES(?, ?)";
-	private static final String update = "UPDATE tipoContactos SET nombre = ? WHERE idTipoContacto = ?";
-	private static final String delete = "DELETE FROM tipoContactos WHERE idTipoContacto = ?";
-	private static final String readall = "SELECT * FROM tipoContactos";
-	private static final String getById = "SELECT * FROM tipoContactos WHERE idTipoContacto = ?";
+	private static final String insert = "INSERT INTO tiposContacto (idTipoContacto, nombre) VALUES(?, ?)";
+	private static final String update = "UPDATE tiposContacto SET nombre = ? WHERE idTipoContacto = ?";
+	private static final String delete = "DELETE FROM tiposContacto WHERE idTipoContacto = ?";
+	private static final String readall = "SELECT * FROM tiposContacto";
+	private static final String getById = "SELECT * FROM tiposContacto WHERE idTipoContacto = ?";
 	private static final Conexion conexion = Conexion.getConexion();
 	
 	public boolean update(TipoContactoDTO tipoContacto_a_editar) 

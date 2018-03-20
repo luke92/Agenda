@@ -33,8 +33,8 @@ public class VentanaPersona extends JFrame
 	private JSpinner txtAltura;
 	private JSpinner txtPiso;
 	private JTextField txtDpto;
-	private JTextField txtLocalidad;
-	private JTextField txtTipoContacto;
+	private ComboBoxLocalidades cmbLocalidades;
+	private ComboBoxTiposContacto cmbTiposContacto;
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private Controlador controlador;
@@ -136,15 +136,13 @@ public class VentanaPersona extends JFrame
 		panel.add(txtDpto);
 		txtDpto.setColumns(10);
 		
-		txtLocalidad = new JTextField();
-		txtLocalidad.setBounds(133, 330, 164, 20);
-		panel.add(txtLocalidad);
-		txtLocalidad.setColumns(10);
+		cmbLocalidades = new ComboBoxLocalidades();
+		cmbLocalidades.setBounds(133, 330, 164, 20);
+		panel.add(cmbLocalidades);
 		
-		txtTipoContacto = new JTextField();
-		txtTipoContacto.setBounds(133, 371, 164, 20);
-		panel.add(txtTipoContacto);
-		txtTipoContacto.setColumns(10);
+		cmbTiposContacto = new ComboBoxTiposContacto();
+		cmbTiposContacto.setBounds(133, 371, 164, 20);
+		panel.add(cmbTiposContacto);
 		
 		if(accion == "Agregar")
 			inicializarAgregar(panel);
@@ -164,8 +162,6 @@ public class VentanaPersona extends JFrame
 		btnAgregarPersona.addActionListener(this.controlador);
 		btnAgregarPersona.setBounds(208, 450, 89, 23);
 		
-		
-		
 		panel.add(btnAgregarPersona);
 	}
 	
@@ -179,6 +175,12 @@ public class VentanaPersona extends JFrame
 		txtEmail.setText(persona.getEmail());
 		datePicker = VentanaCalendario.getPickerDate(persona.getFechaNacimiento());
 		pnlDatePicker.add(datePicker);
+		txtCalle.setText(persona.getCalle());
+		txtAltura.setValue(persona.getAltura());
+		txtPiso.setValue(persona.getPiso());
+		txtDpto.setText(persona.getDepto());
+		cmbLocalidades.setSelectedItem(persona.getLocalidad());
+		cmbTiposContacto.setSelectedItem(persona.getTipoContacto());
 		
 		btnEditarPersona = new JButton("Actualizar");
 		btnEditarPersona.addActionListener(this.controlador);
@@ -240,8 +242,8 @@ public class VentanaPersona extends JFrame
 	{
 		String fecha = datePicker.getJFormattedTextField().getText().trim();
 		Calendar cal = Fechas.String_a_Fecha(fecha);
-		LocalidadDTO localidad = new LocalidadDTO(1, "");
-		TipoContactoDTO tipoContacto = new TipoContactoDTO(1, "");
+		LocalidadDTO localidad = cmbLocalidades.getLocalidad();
+		TipoContactoDTO tipoContacto = cmbTiposContacto.getTipoContacto();
 		PersonaDTO persona = new PersonaDTO
 				(idPersona,this.getTxtNombre().getText(), this.getTxtTelefono().getText(),this.getTxtEmail().getText(),cal,
 				this.getTxtCalle().getText(),(Integer) this.getTxtAltura().getValue(),(Integer) this.getTxtPiso().getValue(),

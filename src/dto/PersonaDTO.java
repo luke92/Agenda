@@ -161,5 +161,9 @@ public class PersonaDTO
 		this.tipoContacto = tipoContacto;
 	}
 	
+	public String getDomicilioCompleto()
+	{
+		return getCalle() + " " + getAltura() + " (" + getPiso() + " " + getDepto() +"), " + getLocalidad().getNombre(); 
+	}
 	
 }

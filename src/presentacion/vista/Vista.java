@@ -16,7 +16,7 @@ public class Vista
 	private JButton btnBorrar;
 	private JButton btnReporte;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Tel\u00e9fono","Email","Cumplea\u00f1os"};
+	private  String[] nombreColumnas = {"Nombre y apellido","Tel\u00e9fono","Email","Cumplea\u00f1os","Tipo", "Domicilio"};
 
 	public Vista() 
 	{
@@ -28,33 +28,37 @@ public class Vista
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 790, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
+		panel.setBounds(0, 0, 780, 262);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 414, 182);
+		spPersonas.setBounds(10, 11, 760, 182);
 		panel.add(spPersonas);
 		
 		modelPersonas = new DefaultTableModel(null,nombreColumnas);
 		tablaPersonas = new JTable(modelPersonas);
 		
-		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(130);
 		tablaPersonas.getColumnModel().getColumn(1).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(120);
 		tablaPersonas.getColumnModel().getColumn(2).setResizable(false);
-		tablaPersonas.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tablaPersonas.getColumnModel().getColumn(3).setPreferredWidth(120);
 		tablaPersonas.getColumnModel().getColumn(3).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(4).setPreferredWidth(120);
+		tablaPersonas.getColumnModel().getColumn(4).setResizable(false);
+		tablaPersonas.getColumnModel().getColumn(5).setPreferredWidth(200);
+		tablaPersonas.getColumnModel().getColumn(5).setResizable(false);
 		
 		spPersonas.setViewportView(tablaPersonas);
-		
+
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(10, 228, 89, 23);
 		panel.add(btnAgregar);
