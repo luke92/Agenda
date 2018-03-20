@@ -7,6 +7,8 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import presentacion.vista.VistaLocalidades;
+import presentacion.vista.VistaTiposContacto;
 import util.Fechas;
 import dto.PersonaDTO;
 
@@ -14,7 +16,9 @@ public class Controlador implements ActionListener
 {
 		private Vista vista;
 		private List<PersonaDTO> personas_en_tabla;
-		private VentanaPersona ventanaPersona; 
+		private VentanaPersona ventanaPersona;
+		private VistaLocalidades vistaLocalidades;
+		private VistaTiposContacto vistaTiposContacto;
 		private Agenda agenda;
 		
 		public Controlador(Vista vista, Agenda agenda)
@@ -24,6 +28,8 @@ public class Controlador implements ActionListener
 			this.vista.getBtnEditar().addActionListener(this);
 			this.vista.getBtnBorrar().addActionListener(this);
 			this.vista.getBtnReporte().addActionListener(this);
+			this.vista.getBtnABMLocalidades().addActionListener(this);
+			this.vista.getBtnABMTiposContacto().addActionListener(this);
 			this.agenda = agenda;
 			this.personas_en_tabla = null;
 		}
@@ -100,6 +106,20 @@ public class Controlador implements ActionListener
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
 			}
+			
+			else if(e.getSource() == this.vista.getBtnABMLocalidades())
+			{
+				this.vistaLocalidades = new VistaLocalidades();
+				this.vistaLocalidades.show();
+			}
+			
+			else if(e.getSource() == this.vista.getBtnABMTiposContacto())
+			{
+				this.vistaTiposContacto = new VistaTiposContacto();
+				this.vistaTiposContacto.show();
+			}
+			
+			
 			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona())
 			{
 				PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();

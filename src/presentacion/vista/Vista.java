@@ -113,6 +113,16 @@ public class Vista
 		return btnReporte;
 	}
 	
+	public JButton getBtnABMLocalidades()
+	{
+		return btnABMLocalidades;
+	}
+	
+	public JButton getBtnABMTiposContacto()
+	{
+		return btnABMTiposContacto;
+	}
+	
 	public DefaultTableModel getModelPersonas() 
 	{
 		return modelPersonas;
