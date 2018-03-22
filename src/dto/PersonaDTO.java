@@ -3,8 +3,7 @@ package dto;
 import java.util.Calendar;
 import java.util.Date;
 
-public class PersonaDTO 
-{
+public class PersonaDTO {
 	private int idPersona;
 	private String nombre;
 	private String telefono;
@@ -16,10 +15,9 @@ public class PersonaDTO
 	private String depto;
 	private LocalidadDTO localidad;
 	private TipoContactoDTO tipoContacto;
-	
+
 	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento,
-			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) 
-	{
+			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -33,9 +31,8 @@ public class PersonaDTO
 		this.tipoContacto = tipoContacto;
 	}
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento,
-			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto)
-	{
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento, String calle,
+			int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -50,120 +47,98 @@ public class PersonaDTO
 		this.localidad = localidad;
 		this.tipoContacto = tipoContacto;
 	}
-	
-	public int getIdPersona() 
-	{
+
+	public int getIdPersona() {
 		return this.idPersona;
 	}
 
-	public void setIdPersona(int idPersona) 
-	{
+	public void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
 	}
 
-	public String getNombre() 
-	{
+	public String getNombre() {
 		return this.nombre;
 	}
 
-	public void setNombre(String nombre) 
-	{
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public String getTelefono() 
-	{
+	public String getTelefono() {
 		return this.telefono;
 	}
 
-	public void setTelefono(String telefono) 
-	{
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
-	public String getEmail() 
-	{
+	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) 
-	{
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Calendar getFechaNacimiento() 
-	{
+	public Calendar getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	
-	public void setFechaNacimiento(Calendar fechaNacimiento) 
-	{
+
+	public void setFechaNacimiento(Calendar fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getCalle() 
-	{
+	public String getCalle() {
 		return calle;
 	}
 
-	public void setCalle(String calle) 
-	{
+	public void setCalle(String calle) {
 		this.calle = calle;
 	}
 
-	public int getAltura() 
-	{
+	public int getAltura() {
 		return altura;
 	}
 
-	public void setAltura(int altura) 
-	{
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
 
-	public int getPiso() 
-	{
+	public int getPiso() {
 		return piso;
 	}
 
-	public void setPiso(int piso) 
-	{
+	public void setPiso(int piso) {
 		this.piso = piso;
 	}
 
-	public String getDepto() 
-	{
+	public String getDepto() {
 		return depto;
 	}
 
-	public void setDepto(String depto) 
-	{
+	public void setDepto(String depto) {
 		this.depto = depto;
 	}
 
-	public LocalidadDTO getLocalidad() 
-	{
+	public LocalidadDTO getLocalidad() {
 		return localidad;
 	}
 
-	public void setLocalidad(LocalidadDTO localidad) 
-	{
+	public void setLocalidad(LocalidadDTO localidad) {
 		this.localidad = localidad;
 	}
 
-	public TipoContactoDTO getTipoContacto() 
-	{
+	public TipoContactoDTO getTipoContacto() {
 		return tipoContacto;
 	}
 
-	public void setTipoContacto(TipoContactoDTO tipoContacto) 
-	{
+	public void setTipoContacto(TipoContactoDTO tipoContacto) {
 		this.tipoContacto = tipoContacto;
 	}
-	
-	public String getDomicilioCompleto()
-	{
-		return getCalle() + " " + getAltura() + " (" + getPiso() + " " + getDepto() +"), " + getLocalidad().getNombre(); 
+
+	public String getDomicilioCompleto() {
+		return getCalle() + " " + getAltura() + " (" + getPiso() + " " + getDepto() + "), "
+				+ getLocalidad().getNombre();
 	}
-	
+
 }

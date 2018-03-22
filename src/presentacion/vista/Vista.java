@@ -7,8 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-public class Vista
-{
+public class Vista {
 	private JFrame frame;
 	private JTable tablaPersonas;
 	private JButton btnAgregar;
@@ -18,34 +17,32 @@ public class Vista
 	private JButton btnABMLocalidades;
 	private JButton btnABMTiposContacto;
 	private DefaultTableModel modelPersonas;
-	private  String[] nombreColumnas = {"Nombre y apellido","Tel\u00e9fono","Email","Cumplea\u00f1os","Tipo", "Domicilio"};
+	private String[] nombreColumnas = { "Nombre y apellido", "Tel\u00e9fono", "Email", "Cumplea\u00f1os", "Tipo",
+			"Domicilio" };
 
-	public Vista() 
-	{
+	public Vista() {
 		super();
 		initialize();
 	}
 
-
-	private void initialize() 
-	{
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 790, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 780, 262);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane spPersonas = new JScrollPane();
 		spPersonas.setBounds(10, 11, 760, 182);
 		panel.add(spPersonas);
-		
-		modelPersonas = new DefaultTableModel(null,nombreColumnas);
+
+		modelPersonas = new DefaultTableModel(null, nombreColumnas);
 		tablaPersonas = new JTable(modelPersonas);
-		
+
 		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tablaPersonas.getColumnModel().getColumn(0).setResizable(false);
 		tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(130);
@@ -58,83 +55,73 @@ public class Vista
 		tablaPersonas.getColumnModel().getColumn(4).setResizable(false);
 		tablaPersonas.getColumnModel().getColumn(5).setPreferredWidth(200);
 		tablaPersonas.getColumnModel().getColumn(5).setResizable(false);
-		
+
 		spPersonas.setViewportView(tablaPersonas);
 
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(10, 228, 89, 23);
 		panel.add(btnAgregar);
-		
+
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(109, 228, 89, 23);
 		panel.add(btnEditar);
-		
+
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(208, 228, 89, 23);
 		panel.add(btnBorrar);
-		
+
 		btnReporte = new JButton("Reporte");
 		btnReporte.setBounds(307, 228, 89, 23);
 		panel.add(btnReporte);
-		
+
 		btnABMLocalidades = new JButton("ABM Localidades");
 		btnABMLocalidades.setBounds(600, 228, 170, 23);
 		panel.add(btnABMLocalidades);
-		
+
 		btnABMTiposContacto = new JButton("ABM Tipos de Contacto");
 		btnABMTiposContacto.setBounds(410, 228, 170, 23);
 		panel.add(btnABMTiposContacto);
-		
+
 		frame.setTitle("TP Inicial - AGENDA");
 	}
-	
-	public void show()
-	{
+
+	public void show() {
 		this.frame.setVisible(true);
 	}
-	
-	public JButton getBtnAgregar() 
-	{
+
+	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
-	
-	public JButton getBtnEditar()
-	{
+
+	public JButton getBtnEditar() {
 		return btnEditar;
 	}
 
-	public JButton getBtnBorrar() 
-	{
+	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
-	
-	public JButton getBtnReporte() 
-	{
+
+	public JButton getBtnReporte() {
 		return btnReporte;
 	}
-	
-	public JButton getBtnABMLocalidades()
-	{
+
+	public JButton getBtnABMLocalidades() {
 		return btnABMLocalidades;
 	}
-	
-	public JButton getBtnABMTiposContacto()
-	{
+
+	public JButton getBtnABMTiposContacto() {
 		return btnABMTiposContacto;
 	}
-	
-	public DefaultTableModel getModelPersonas() 
-	{
+
+	public DefaultTableModel getModelPersonas() {
 		return modelPersonas;
 	}
-	
-	public JTable getTablaPersonas()
-	{
+
+	public JTable getTablaPersonas() {
 		return tablaPersonas;
 	}
 
-	public String[] getNombreColumnas() 
-	{
+	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
 }

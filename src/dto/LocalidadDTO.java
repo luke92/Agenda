@@ -1,40 +1,33 @@
 package dto;
 
-public class LocalidadDTO 
-{
+public class LocalidadDTO {
 	private int idLocalidad;
 	private String nombre;
-	
-	public LocalidadDTO(int idLocalidad, String nombre) 
-	{
+
+	public LocalidadDTO(int idLocalidad, String nombre) {
 		this.idLocalidad = idLocalidad;
 		this.nombre = nombre;
 	}
-	
-	public int getIdLocalidad() 
-	{
+
+	public int getIdLocalidad() {
 		return idLocalidad;
 	}
-	
-	public void setIdLocalidad(int idLocalidad) 
-	{
+
+	public void setIdLocalidad(int idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
-	
-	public String getNombre() 
-	{
+
+	public String getNombre() {
 		return nombre;
 	}
-	
-	public void setNombre(String nombre) 
-	{
+
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public String toString()
-    {
-        return getNombre();
-    }
+
+	public String toString() {
+		return getNombre();
+	}
 
 	@Override
 	public int hashCode() {
@@ -63,8 +56,5 @@ public class LocalidadDTO
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

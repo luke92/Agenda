@@ -6,12 +6,8 @@ import java.util.Calendar;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
 
+@SuppressWarnings("serial")
 public class DateLabelFormatter extends AbstractFormatter {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String datePattern = "dd/MM/yyyy";
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 

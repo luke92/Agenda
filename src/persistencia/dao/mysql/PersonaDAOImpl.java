@@ -13,31 +13,26 @@ import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoContactoDTO;
 
-public class PersonaDAOImpl implements PersonaDAO
-{
+public class PersonaDAOImpl implements PersonaDAO {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fechanacimiento, calle, altura, piso, depto, idLocalidad, idTipoContacto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String update = "UPDATE personas SET nombre = ?, telefono = ?, email = ?, fechanacimiento = ?, calle = ?, altura = ?, piso = ?, depto = ?, idLocalidad = ?, idTipoContacto = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	//private static final String readall = "SELECT * FROM personas";
-	//private static final String getById = "SELECT * FROM personas WHERE idPersona = ?";
+	// private static final String readall = "SELECT * FROM personas";
+	// private static final String getById = "SELECT * FROM personas WHERE idPersona
+	// = ?";
 	private static final Conexion conexion = Conexion.getConexion();
-	private static final String readAllWithJoins = 
-			"SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "+ 
-			" l.idLocalidad, l.nombre as localidadNombre, t.idTipoContacto, t.nombre as TipoContactoNombre " + 
-			"FROM personas as p INNER JOIN localidades as l ON p.idLocalidad = l.idLocalidad " + 
-			"INNER JOIN tiposContacto as t ON p.idTipoContacto = t.idTipoContacto";
-	private static final String getByIdWithJoins =
-			"SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "+ 
-					" l.idLocalidad, l.nombre as localidadNombre, t.idTipoContacto, t.nombre as TipoContactoNombre " + 
-					"FROM personas as p INNER JOIN localidades as l ON p.idLocalidad = l.idLocalidad " + 
-					"INNER JOIN tiposContacto as t ON p.idTipoContacto = t.idTipoContacto " + 
-					"where idPersona = ?";
-	
-	public boolean insert(PersonaDTO persona)
-	{
+	private static final String readAllWithJoins = "SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "
+			+ " l.idLocalidad, l.nombre as localidadNombre, t.idTipoContacto, t.nombre as TipoContactoNombre "
+			+ "FROM personas as p INNER JOIN localidades as l ON p.idLocalidad = l.idLocalidad "
+			+ "INNER JOIN tiposContacto as t ON p.idTipoContacto = t.idTipoContacto";
+	private static final String getByIdWithJoins = "SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "
+			+ " l.idLocalidad, l.nombre as localidadNombre, t.idTipoContacto, t.nombre as TipoContactoNombre "
+			+ "FROM personas as p INNER JOIN localidades as l ON p.idLocalidad = l.idLocalidad "
+			+ "INNER JOIN tiposContacto as t ON p.idTipoContacto = t.idTipoContacto " + "where idPersona = ?";
+
+	public boolean insert(PersonaDTO persona) {
 		PreparedStatement statement;
-		try 
-		{
+		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, persona.getIdPersona());
 			statement.setString(2, persona.getNombre());
@@ -50,25 +45,20 @@ public class PersonaDAOImpl implements PersonaDAO
 			statement.setString(9, persona.getDepto());
 			statement.setInt(10, persona.getLocalidad().getIdLocalidad());
 			statement.setInt(11, persona.getTipoContacto().getIdTipoContacto());
-			if(statement.executeUpdate() > 0) //Si se ejecutÃ³ devuelvo true
+			if (statement.executeUpdate() > 0) // Si se ejecutÃ³ devuelvo true
 				return true;
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally //Se ejecuta siempre
+		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();
 		}
 		return false;
 	}
-	
-	public boolean update(PersonaDTO persona) 
-	{
+
+	public boolean update(PersonaDTO persona) {
 		PreparedStatement statement;
-		try 
-		{
+		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);
 			statement.setInt(11, persona.getIdPersona());
 			statement.setString(1, persona.getNombre());
@@ -81,105 +71,89 @@ public class PersonaDAOImpl implements PersonaDAO
 			statement.setString(8, persona.getDepto());
 			statement.setInt(9, persona.getLocalidad().getIdLocalidad());
 			statement.setInt(10, persona.getTipoContacto().getIdTipoContacto());
-			
-			if(statement.executeUpdate() > 0) //Si se ejecutá devuelvo true
+
+			if (statement.executeUpdate() > 0) // Si se ejecutï¿½ devuelvo true
 				return true;
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally //Se ejecuta siempre
+		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();
 		}
 		return false;
 	}
-	
-	public boolean delete(PersonaDTO persona_a_eliminar)
-	{
+
+	public boolean delete(PersonaDTO persona_a_eliminar) {
 		PreparedStatement statement;
-		int chequeoUpdate=0;
-		try 
-		{
+		int chequeoUpdate = 0;
+		try {
 			statement = conexion.getSQLConexion().prepareStatement(delete);
 			statement.setString(1, Integer.toString(persona_a_eliminar.getIdPersona()));
 			chequeoUpdate = statement.executeUpdate();
-			if(chequeoUpdate > 0) //Si se ejecutá devuelvo true
+			if (chequeoUpdate > 0) // Si se ejecutï¿½ devuelvo true
 				return true;
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally //Se ejecuta siempre
+		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();
 		}
 		return false;
 	}
-	
-	public List<PersonaDTO> readAll()
-	{
+
+	public List<PersonaDTO> readAll() {
 		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
+		ResultSet resultSet; // Guarda el resultado de la query
 		ArrayList<PersonaDTO> personas = new ArrayList<PersonaDTO>();
-		try 
-		{
+		try {
 			statement = conexion.getSQLConexion().prepareStatement(readAllWithJoins);
 			resultSet = statement.executeQuery();
-			
-			while(resultSet.next())
-			{
-				LocalidadDTO localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),resultSet.getString("localidadNombre"));
-				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),resultSet.getString("tipoContactoNombre"));
-				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),
-						resultSet.getString("Email"),resultSet.getDate("FechaNacimiento"),resultSet.getString("Calle"),
-						resultSet.getInt("Altura"),resultSet.getInt("Piso"),resultSet.getString("Depto"),
-						localidad,tipoContacto));
+
+			while (resultSet.next()) {
+				LocalidadDTO localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),
+						resultSet.getString("localidadNombre"));
+				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),
+						resultSet.getString("tipoContactoNombre"));
+				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
+						resultSet.getString("Telefono"), resultSet.getString("Email"),
+						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
+						resultSet.getInt("Piso"), resultSet.getString("Depto"), localidad, tipoContacto));
 			}
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally //Se ejecuta siempre
+		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();
 		}
 		return personas;
 	}
 
-	public PersonaDTO getById(PersonaDTO persona_a_obtener) 
-	{
+	public PersonaDTO getById(PersonaDTO persona_a_obtener) {
 		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
+		ResultSet resultSet; // Guarda el resultado de la query
 		PersonaDTO persona = null;
-		try 
-		{
+		try {
 			statement = conexion.getSQLConexion().prepareStatement(getByIdWithJoins);
 			statement.setInt(1, persona_a_obtener.getIdPersona());
 			resultSet = statement.executeQuery();
-			
-			while(resultSet.next())
-			{
-				LocalidadDTO localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),resultSet.getString("localidadNombre"));
-				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),resultSet.getString("tipoContactoNombre"));
-				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"), resultSet.getString("Telefono"),
-						resultSet.getString("Email"),resultSet.getDate("FechaNacimiento"),resultSet.getString("Calle"),
-						resultSet.getInt("Altura"),resultSet.getInt("Piso"),resultSet.getString("Depto"),
-						localidad,tipoContacto);
+
+			while (resultSet.next()) {
+				LocalidadDTO localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"),
+						resultSet.getString("localidadNombre"));
+				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),
+						resultSet.getString("tipoContactoNombre"));
+				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
+						resultSet.getString("Telefono"), resultSet.getString("Email"),
+						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
+						resultSet.getInt("Piso"), resultSet.getString("Depto"), localidad, tipoContacto);
 			}
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally //Se ejecuta siempre
+		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();
 		}
 		return persona;
 	}
-	
+
 }
