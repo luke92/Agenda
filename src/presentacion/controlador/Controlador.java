@@ -3,6 +3,11 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
+
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
@@ -47,9 +52,7 @@ public class Controlador implements ActionListener {
 					this.personas_en_tabla.get(i).getEmail(),
 					Fechas.Fecha_a_String(this.personas_en_tabla.get(i).getFechaNacimiento()),
 					this.personas_en_tabla.get(i).getTipoContacto().getNombre(),
-					this.personas_en_tabla.get(i).getDomicilioCompleto()
-
-			};
+					this.personas_en_tabla.get(i).getDomicilioCompleto() };
 			this.vista.getModelPersonas().addRow(fila);
 		}
 		this.vista.show();
@@ -57,11 +60,13 @@ public class Controlador implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getBtnAgregar()) {
-			if (this.ventanaPersona == null) // Verificar si se abrio alguna vez la ventana para agregar persona
+			// Verificar si se abrio alguna vez la ventana para agregar persona
+			if (this.ventanaPersona == null)
 				this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
 			else
-				this.ventanaPersona.toFront(); // Si la ventana esta atras y aprieto el boton Agregar se muestra la
-												// ventana.
+				// Si la ventana esta atras y aprieto el boton Agregar se
+				// muestra la ventana.
+				this.ventanaPersona.toFront();
 		} else if (e.getSource() == this.vista.getBtnEditar()) {
 			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 			if (filas_seleccionadas.length == 1) {
@@ -78,7 +83,6 @@ public class Controlador implements ActionListener {
 				for (int fila : filas_seleccionadas) {
 					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 				}
-
 				this.llenarTabla();
 			} else
 				this.ventanaPersona.toFront();
@@ -99,18 +103,24 @@ public class Controlador implements ActionListener {
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
 			PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
-			this.agenda.agregarPersona(nuevaPersona);
-			this.llenarTabla();
-			this.ventanaPersona.dispose();
-			this.ventanaPersona = null; // Se habilita abrir la ventana de agregar persona luego de que la misma se
-										// cierra
+			if (!mailValido(nuevaPersona.getEmail()))
+				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
+			else{
+				this.agenda.agregarPersona(nuevaPersona);
+				this.llenarTabla();
+				this.ventanaPersona.dispose();
+				// Se habilita abrir la ventana de agregar persona luego de que
+				// la misma se cierra
+				this.ventanaPersona = null;
+			}
 		} else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) {
 			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
 			this.agenda.editarPersona(editarPersona);
 			this.llenarTabla();
 			this.ventanaPersona.dispose();
-			this.ventanaPersona = null; // Se habilita abrir la ventana de agregar persona luego de que la misma se
-										// cierra
+			// Se habilita abrir la ventana de agregar persona luego de que la
+			// mismase cierra
+			this.ventanaPersona = null;
 		}
 
 		// Evitar abrir multiples instancias del boton agregar.
@@ -118,10 +128,22 @@ public class Controlador implements ActionListener {
 			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter() {
 				@Override
 				public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-					ventanaPersona = null; // Se habilita abrir la ventana de agregar persona luego de que la misma se
-											// cierra
+					// Se habilita abrir la ventana de agregar persona luego de
+					// que la misma se cierra
+					ventanaPersona = null;
 				}
 			});
 		}
+	}
+
+	private boolean mailValido(String string) {
+		Pattern pattern = Pattern.compile(
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		String email = string;
+		Matcher mather = pattern.matcher(email);
+		if (mather.find())
+			return true;
+		else
+			return false;
 	}
 }
