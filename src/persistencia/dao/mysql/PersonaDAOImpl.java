@@ -18,7 +18,8 @@ public class PersonaDAOImpl implements PersonaDAO {
 	private static final String update = "UPDATE personas SET nombre = ?, telefono = ?, email = ?, fechanacimiento = ?, calle = ?, altura = ?, piso = ?, depto = ?, idLocalidad = ?, idTipoContacto = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
 	// private static final String readall = "SELECT * FROM personas";
-	// private static final String getById = "SELECT * FROM personas WHERE idPersona
+	// private static final String getById = "SELECT * FROM personas WHERE
+	// idPersona
 	// = ?";
 	private static final Conexion conexion = Conexion.getConexion();
 	private static final String readAllWithJoins = "SELECT p.idPersona, p.nombre, p.telefono, p.email, p.fechanacimiento, p.calle, p.altura, p.piso, p.depto, "

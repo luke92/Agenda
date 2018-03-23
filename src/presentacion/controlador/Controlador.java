@@ -82,6 +82,7 @@ public class Controlador implements ActionListener {
 				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
 				for (int fila : filas_seleccionadas) {
 					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
+					JOptionPane.showMessageDialog(null, "El contacto ha sido borrado");
 				}
 				this.llenarTabla();
 			} else

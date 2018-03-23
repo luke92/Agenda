@@ -1,8 +1,6 @@
 package presentacion.vista;
 
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,8 +18,8 @@ import dto.TipoContactoDTO;
 import presentacion.controlador.Controlador;
 import util.Fechas;
 
+@SuppressWarnings("serial")
 public class VentanaPersona extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int idPersona;
 	private JTextField txtNombre;
