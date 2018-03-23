@@ -6,11 +6,8 @@ import javax.swing.JComboBox;
 import dto.TipoContactoDTO;
 import persistencia.dao.mysql.TipoContactoDAOImpl;
 
+@SuppressWarnings("serial")
 public class ComboBoxTiposContacto extends JComboBox<TipoContactoDTO> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ComboBoxTiposContacto() {
 		super();

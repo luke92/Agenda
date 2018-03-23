@@ -6,11 +6,8 @@ import javax.swing.JComboBox;
 import dto.LocalidadDTO;
 import persistencia.dao.mysql.LocalidadDAOImpl;
 
+@SuppressWarnings("serial")
 public class ComboBoxLocalidades extends JComboBox<LocalidadDTO> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public ComboBoxLocalidades() {
 		super();

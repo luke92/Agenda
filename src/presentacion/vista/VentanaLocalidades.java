@@ -11,9 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import dto.LocalidadDTO;
 
+@SuppressWarnings("serial")
 public class VentanaLocalidades extends JFrame {
-	private static final long serialVersionUID = 1L;
-
 	private JPanel contentPane;
 	private int idLocalidad;
 	private JTextField txtNombre;

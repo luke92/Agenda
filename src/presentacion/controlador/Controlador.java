@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
+import presentacion.vista.VentanaTiposContacto;
 import presentacion.vista.Vista;
 import presentacion.vista.VistaLocalidades;
 import presentacion.vista.VistaTiposContacto;
@@ -93,12 +94,16 @@ public class Controlador implements ActionListener {
 		}
 
 		else if (e.getSource() == this.vista.getBtnABMLocalidades()) {
-			this.vistaLocalidades = new VistaLocalidades();
+			// Verificar si se abrio alguna vez la ventana de abm localidades
+			if (this.vistaLocalidades == null)
+				this.vistaLocalidades = new VistaLocalidades();
 			this.vistaLocalidades.show();
 		}
 
 		else if (e.getSource() == this.vista.getBtnABMTiposContacto()) {
-			this.vistaTiposContacto = new VistaTiposContacto();
+			// Verificar si se abrio alguna vez la ventana de abm localidades
+			if (this.vistaTiposContacto == null)
+				this.vistaTiposContacto = new VistaTiposContacto();
 			this.vistaTiposContacto.show();
 		}
 
@@ -139,6 +144,7 @@ public class Controlador implements ActionListener {
 				}
 			});
 		}
+
 	}
 
 	private boolean mailValido(String string) {

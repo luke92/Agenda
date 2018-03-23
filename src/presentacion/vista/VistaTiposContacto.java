@@ -117,7 +117,13 @@ public class VistaTiposContacto implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.getBtnAgregar()) {
-			this.ventanaTiposContacto = new VentanaTiposContacto(this, "Agregar", null);
+			// Verificar si se abrio alguna vez la ventana para agregar tipo contacto
+			if (this.ventanaTiposContacto == null)
+				this.ventanaTiposContacto = new VentanaTiposContacto(this, "Agregar", null);
+			else
+				// Si la ventana esta atras y aprieto el boton Agregar se
+				// muestra la ventana.
+				this.ventanaTiposContacto.toFront();
 		} else if (e.getSource() == this.getBtnEditar()) {
 			int[] filas_seleccionadas = this.getTablaTiposContacto().getSelectedRows();
 			if (filas_seleccionadas.length == 1) {
@@ -130,7 +136,6 @@ public class VistaTiposContacto implements ActionListener {
 			for (int fila : filas_seleccionadas) {
 				new TipoContactoDAOImpl().delete(this.tiposContacto_en_tabla.get(fila));
 			}
-
 			this.llenarTabla();
 
 		} else if (e.getSource() == this.ventanaTiposContacto.getBtnAgregarTipoContacto()) {
@@ -138,12 +143,25 @@ public class VistaTiposContacto implements ActionListener {
 			new TipoContactoDAOImpl().insert(nuevoTipoContacto);
 			this.llenarTabla();
 			this.ventanaTiposContacto.dispose();
+			this.ventanaTiposContacto = null;
 		} else if (e.getSource() == this.ventanaTiposContacto.getBtnEditarTipoContacto()) {
 			TipoContactoDTO editarTipoContacto = this.ventanaTiposContacto.getDatosTipoContacto();
 			new TipoContactoDAOImpl().update(editarTipoContacto);
 			this.llenarTabla();
 			this.ventanaTiposContacto.dispose();
+			this.ventanaTiposContacto = null;
 		}
 
+		// Evitar abrir multiples instancias del boton agregar.
+		if (this.ventanaTiposContacto != null) {
+			this.ventanaTiposContacto.addWindowListener(new java.awt.event.WindowAdapter() {
+				@Override
+				public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+					// Se habilita abrir la ventana de agregar persona luego de
+					// que la misma se cierra
+					ventanaTiposContacto = null;
+				}
+			});
+		}
 	}
 }
