@@ -105,7 +105,7 @@ public class Controlador implements ActionListener {
 			PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
 			if (!mailValido(nuevaPersona.getEmail()))
 				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
-			else{
+			else {
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
@@ -115,12 +115,16 @@ public class Controlador implements ActionListener {
 			}
 		} else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) {
 			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
-			this.agenda.editarPersona(editarPersona);
-			this.llenarTabla();
-			this.ventanaPersona.dispose();
-			// Se habilita abrir la ventana de agregar persona luego de que la
-			// mismase cierra
-			this.ventanaPersona = null;
+			if (!mailValido(editarPersona.getEmail()))
+				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
+			else {
+				this.agenda.editarPersona(editarPersona);
+				this.llenarTabla();
+				this.ventanaPersona.dispose();
+				// Se habilita abrir la ventana de agregar persona luego de que
+				// la misma se cierra
+				this.ventanaPersona = null;
+			}
 		}
 
 		// Evitar abrir multiples instancias del boton agregar.
