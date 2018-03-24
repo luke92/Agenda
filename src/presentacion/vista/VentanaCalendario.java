@@ -9,10 +9,8 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import util.DateLabelFormatter;
 
-public class VentanaCalendario 
-{
-	public static JDatePickerImpl getPickerToday() 
-	{
+public class VentanaCalendario {
+	public static JDatePickerImpl getPickerToday() {
 		UtilDateModel model = new UtilDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
@@ -22,9 +20,8 @@ public class VentanaCalendario
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		return datePicker;
 	}
-	
-	public static JDatePickerImpl getPickerDate(Calendar fecha) 
-	{
+
+	public static JDatePickerImpl getPickerDate(Calendar fecha) {
 		UtilDateModel model = new UtilDateModel();
 		model.setValue(fecha.getTime());
 		Properties p = new Properties();

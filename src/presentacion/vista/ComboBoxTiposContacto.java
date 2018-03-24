@@ -6,26 +6,19 @@ import javax.swing.JComboBox;
 import dto.TipoContactoDTO;
 import persistencia.dao.mysql.TipoContactoDAOImpl;
 
-public class ComboBoxTiposContacto extends JComboBox<TipoContactoDTO>
-{	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class ComboBoxTiposContacto extends JComboBox<TipoContactoDTO> {
 
-	public ComboBoxTiposContacto()
-	{
+	public ComboBoxTiposContacto() {
 		super();
 		DefaultComboBoxModel<TipoContactoDTO> value = new DefaultComboBoxModel<TipoContactoDTO>();
 		this.setModel(value);
-		for(TipoContactoDTO tipoContacto : new TipoContactoDAOImpl().readAll())
-		{
+		for (TipoContactoDTO tipoContacto : new TipoContactoDAOImpl().readAll()) {
 			value.addElement(tipoContacto);
 		}
 	}
-	
-	public TipoContactoDTO getTipoContacto()
-	{
+
+	public TipoContactoDTO getTipoContacto() {
 		return (TipoContactoDTO) this.getSelectedItem();
 	}
 }

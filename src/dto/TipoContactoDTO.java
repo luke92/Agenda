@@ -1,38 +1,31 @@
 package dto;
 
-public class TipoContactoDTO 
-{
+public class TipoContactoDTO {
 	private int idTipoContacto;
 	private String nombre;
-	
-	public TipoContactoDTO(int idTipoContacto, String nombre) 
-	{
+
+	public TipoContactoDTO(int idTipoContacto, String nombre) {
 		this.idTipoContacto = idTipoContacto;
 		this.nombre = nombre;
 	}
 
-	public int getIdTipoContacto() 
-	{
+	public int getIdTipoContacto() {
 		return idTipoContacto;
 	}
 
-	public void setIdTipoContacto(int idTipoContacto) 
-	{
+	public void setIdTipoContacto(int idTipoContacto) {
 		this.idTipoContacto = idTipoContacto;
 	}
 
-	public String getNombre() 
-	{
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) 
-	{
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return this.getNombre();
 	}
 
@@ -63,7 +56,5 @@ public class TipoContactoDTO
 			return false;
 		return true;
 	}
-	
-	
-		
+
 }
