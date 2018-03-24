@@ -3,18 +3,16 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
-import presentacion.vista.VentanaTiposContacto;
 import presentacion.vista.Vista;
 import presentacion.vista.VistaLocalidades;
 import presentacion.vista.VistaTiposContacto;
+import util.ExpReg;
 import util.Fechas;
 import dto.PersonaDTO;
 
@@ -107,11 +105,12 @@ public class Controlador implements ActionListener {
 			this.vistaTiposContacto.show();
 		}
 
-		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) {
-			PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
-			if (!mailValido(nuevaPersona.getEmail()))
-				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
-			else {
+		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
+		{
+			
+			if(this.ventanaPersona.datosEstanCorrectos())
+			{
+				PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaPersona.dispose();
@@ -121,7 +120,7 @@ public class Controlador implements ActionListener {
 			}
 		} else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) {
 			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
-			if (!mailValido(editarPersona.getEmail()))
+			if (!ExpReg.mailValido(editarPersona.getEmail()))
 				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
 			else {
 				this.agenda.editarPersona(editarPersona);
@@ -145,16 +144,5 @@ public class Controlador implements ActionListener {
 			});
 		}
 
-	}
-
-	private boolean mailValido(String string) {
-		Pattern pattern = Pattern.compile(
-				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-		String email = string;
-		Matcher mather = pattern.matcher(email);
-		if (mather.find())
-			return true;
-		else
-			return false;
 	}
 }

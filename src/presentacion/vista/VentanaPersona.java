@@ -5,8 +5,8 @@ import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -16,6 +16,7 @@ import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoContactoDTO;
 import presentacion.controlador.Controlador;
+import util.ExpReg;
 import util.Fechas;
 
 @SuppressWarnings("serial")
@@ -28,8 +29,8 @@ public class VentanaPersona extends JFrame {
 	private JDatePickerImpl datePicker;
 	private JPanel pnlDatePicker;
 	private JTextField txtCalle;
-	private JSpinner txtAltura;
-	private JSpinner txtPiso;
+	private JTextField txtAltura;
+	private JTextField txtPiso;
 	private JTextField txtDpto;
 	private ComboBoxLocalidades cmbLocalidades;
 	private ComboBoxTiposContacto cmbTiposContacto;
@@ -119,11 +120,11 @@ public class VentanaPersona extends JFrame {
 		panel.add(txtCalle);
 		txtCalle.setColumns(10);
 
-		txtAltura = new JSpinner();
+		txtAltura = new JTextField();
 		txtAltura.setBounds(133, 207, 164, 20);
 		panel.add(txtAltura);
 
-		txtPiso = new JSpinner();
+		txtPiso = new JTextField();
 		txtPiso.setBounds(133, 248, 164, 20);
 		panel.add(txtPiso);
 
@@ -171,8 +172,8 @@ public class VentanaPersona extends JFrame {
 		datePicker = VentanaCalendario.getPickerDate(persona.getFechaNacimiento());
 		pnlDatePicker.add(datePicker);
 		txtCalle.setText(persona.getCalle());
-		txtAltura.setValue(persona.getAltura());
-		txtPiso.setValue(persona.getPiso());
+		txtAltura.setText(String.valueOf(persona.getAltura()));
+		txtPiso.setText(String.valueOf(persona.getPiso()));
 		txtDpto.setText(persona.getDepto());
 		cmbLocalidades.setSelectedItem(persona.getLocalidad());
 		cmbTiposContacto.setSelectedItem(persona.getTipoContacto());
@@ -203,11 +204,11 @@ public class VentanaPersona extends JFrame {
 		return txtCalle;
 	}
 
-	public JSpinner getTxtAltura() {
+	public JTextField getTxtAltura() {
 		return txtAltura;
 	}
 
-	public JSpinner getTxtPiso() {
+	public JTextField getTxtPiso() {
 		return txtPiso;
 	}
 
@@ -230,9 +231,55 @@ public class VentanaPersona extends JFrame {
 		TipoContactoDTO tipoContacto = cmbTiposContacto.getTipoContacto();
 		PersonaDTO persona = new PersonaDTO(idPersona, this.getTxtNombre().getText(), this.getTxtTelefono().getText(),
 				this.getTxtEmail().getText(), cal, this.getTxtCalle().getText(),
-				(Integer) this.getTxtAltura().getValue(), (Integer) this.getTxtPiso().getValue(),
+				Integer.parseInt(this.getTxtAltura().getText()), Integer.parseInt(this.getTxtPiso().getText()),
 				this.getTxtDpto().getText(), localidad, tipoContacto);
 		return persona;
+	}
+	
+	public boolean datosEstanCorrectos()
+	{
+		this.getTxtNombre().setText(this.getTxtNombre().getText().trim());
+		this.getTxtTelefono().setText(this.getTxtTelefono().getText().trim());
+		this.getTxtEmail().setText(this.getTxtEmail().getText().trim());
+		this.getTxtCalle().setText(this.getTxtCalle().getText().trim());
+		this.getTxtAltura().setText(this.getTxtAltura().getText().trim());
+		this.getTxtPiso().setText(this.getTxtPiso().getText().trim());
+		this.getTxtDpto().setText(this.getTxtDpto().getText().trim());
+		
+		String error = "";
+	
+		if(this.getTxtNombre().getText() == "" || !ExpReg.contieneLetrasyEspacios(this.getTxtNombre().getText()))
+			error += "-Coloque un nombre y apellido valido\n";
+				
+		if(!ExpReg.telefonoValido(this.getTxtTelefono().getText()))
+			error += "-Coloque un telefono valido\n";
+		
+		if (!ExpReg.mailValido(this.getTxtEmail().getText()))
+			error += "-Coloque un mail valido\n";
+		
+		if(datePicker.getJFormattedTextField().getText().trim() == "")
+			error += "-Debe seleccionar una fecha";
+		
+		if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtCalle().getText()))
+			error += "-Coloque una calle valida\n";
+		
+		if (!ExpReg.contieneSoloNumeros(this.getTxtAltura().getText()))
+			error += "-Coloque una altura valida\n";
+		
+		if (!ExpReg.contieneSoloNumeros(this.getTxtPiso().getText()))
+			error += "-Coloque un piso valido\n";
+		
+		if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtAltura().getText()))
+			error += "-Coloque un departamento valido\n";
+		
+		
+		if(error != "")
+		{
+			JOptionPane.showMessageDialog(null, error);
+			return false;
+		}
+		
+		return true;
 	}
 
 }
