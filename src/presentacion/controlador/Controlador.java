@@ -12,7 +12,6 @@ import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import presentacion.vista.VistaLocalidades;
 import presentacion.vista.VistaTiposContacto;
-import util.ExpReg;
 import util.Fechas;
 import dto.PersonaDTO;
 
@@ -84,7 +83,7 @@ public class Controlador implements ActionListener {
 		{
 			// Verificar si se abrio alguna vez la ventana de abm localidades
 			if (this.vistaLocalidades == null)
-				this.vistaLocalidades = new VistaLocalidades();
+				this.vistaLocalidades = new VistaLocalidades(this);
 			this.vistaLocalidades.show();
 		}
 
@@ -98,47 +97,28 @@ public class Controlador implements ActionListener {
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
 		{
-			
-			if(this.ventanaPersona.datosEstanCorrectos())
-			{
-				PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
-				this.agenda.agregarPersona(nuevaPersona);
-				this.llenarTabla();
-				this.ventanaPersona.dispose();
-				// Se habilita abrir la ventana de agregar persona luego de que
-				// la misma se cierra
-				this.ventanaPersona = null;
-			}
+			actionBtnAgregarPersona();
 		} 
 		
 		else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) 
 		{
-			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
-			if (!ExpReg.mailValido(editarPersona.getEmail()))
-				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
-			else {
-				this.agenda.editarPersona(editarPersona);
-				this.llenarTabla();
-				this.ventanaPersona.dispose();
-				// Se habilita abrir la ventana de agregar persona luego de que
-				// la misma se cierra
-				this.ventanaPersona = null;
-			}
+			actionBtnEditarPersona();
 		}
 
 		// Evitar abrir multiples instancias del boton agregar.
 		if (this.ventanaPersona != null) 
 		{
-			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter() {
+			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter() 
+			{
 				@Override
-				public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+				{
 					// Se habilita abrir la ventana de agregar persona luego de
 					// que la misma se cierra
 					ventanaPersona = null;
 				}
 			});
 		}
-
 	}
 	
 	private void actionBtnAgregar()
@@ -187,9 +167,35 @@ public class Controlador implements ActionListener {
 				}
 				
 			}
-			
-			
 		} 
 		else this.ventanaPersona.toFront();
+	}
+	
+	private void actionBtnAgregarPersona()
+	{
+		if(this.ventanaPersona.datosEstanCorrectos())
+		{
+			PersonaDTO nuevaPersona = this.ventanaPersona.getDatosPersona();
+			this.agenda.agregarPersona(nuevaPersona);
+			this.llenarTabla();
+			this.ventanaPersona.dispose();
+			// Se habilita abrir la ventana de agregar persona luego de que
+			// la misma se cierra
+			this.ventanaPersona = null;
+		}
+	}
+	
+	private void actionBtnEditarPersona()
+	{
+		if(this.ventanaPersona.datosEstanCorrectos())
+		{
+			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
+			this.agenda.editarPersona(editarPersona);
+			this.llenarTabla();
+			this.ventanaPersona.dispose();
+			// Se habilita abrir la ventana de agregar persona luego de que
+			// la misma se cierra
+			this.ventanaPersona = null;
+		}
 	}
 }

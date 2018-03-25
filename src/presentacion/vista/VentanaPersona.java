@@ -254,23 +254,26 @@ public class VentanaPersona extends JFrame {
 		if(!ExpReg.telefonoValido(this.getTxtTelefono().getText()))
 			error += "-Coloque un telefono valido\n";
 		
-		if (!ExpReg.mailValido(this.getTxtEmail().getText()))
-			error += "-Coloque un mail valido\n";
+		if (!this.getTxtEmail().getText().isEmpty())
+			if(!ExpReg.mailValido(this.getTxtEmail().getText()))
+				error += "-Coloque un mail valido\n";
 		
-		if(datePicker.getJFormattedTextField().getText().trim() == "")
-			error += "-Debe seleccionar una fecha";
+		if(!this.getTxtCalle().getText().isEmpty() || !this.getTxtAltura().getText().isEmpty())
+		{
+			if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtCalle().getText()))
+				error += "-Coloque una calle valida\n";
+			
+			if (!ExpReg.contieneSoloNumeros(this.getTxtAltura().getText()))
+				error += "-Coloque una altura valida\n";	
+		}
 		
-		if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtCalle().getText()))
-			error += "-Coloque una calle valida\n";
+		if (!this.getTxtPiso().getText().isEmpty())
+			if(!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtPiso().getText()))
+				error += "-Coloque un piso valido\n";
 		
-		if (!ExpReg.contieneSoloNumeros(this.getTxtAltura().getText()))
-			error += "-Coloque una altura valida\n";
-		
-		if (!ExpReg.contieneSoloNumeros(this.getTxtPiso().getText()))
-			error += "-Coloque un piso valido\n";
-		
-		if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtAltura().getText()))
-			error += "-Coloque un departamento valido\n";
+		if(!this.getTxtDpto().getText().isEmpty())
+			if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtDpto().getText()))
+				error += "-Coloque un departamento valido\n";
 		
 		if(cmbLocalidades.getSelectedIndex() < 0)
 			error += "Debe elegir una localidad\n";

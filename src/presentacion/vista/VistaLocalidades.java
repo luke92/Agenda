@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dto.LocalidadDTO;
 import persistencia.dao.mysql.LocalidadDAOSQL;
+import presentacion.controlador.Controlador;
 
 public class VistaLocalidades implements ActionListener {
 	private JFrame frame;
@@ -24,8 +25,10 @@ public class VistaLocalidades implements ActionListener {
 	private List<LocalidadDTO> localidades_en_tabla;
 	private VentanaLocalidades ventanaLocalidades;
 	private String[] nombreColumnas = { "Descripcion" };
+	private Controlador controlador;
 
-	public VistaLocalidades() {
+	public VistaLocalidades(Controlador padre) 
+	{
 		super();
 		initialize();
 		localidades_en_tabla = null;
@@ -33,6 +36,7 @@ public class VistaLocalidades implements ActionListener {
 		this.getBtnBorrar().addActionListener(this);
 		this.getBtnEditar().addActionListener(this);
 		llenarTabla();
+		controlador = padre;
 
 	}
 
@@ -143,6 +147,7 @@ public class VistaLocalidades implements ActionListener {
 			LocalidadDTO editarLocalidad = this.ventanaLocalidades.getDatosLocalidad();
 			new LocalidadDAOSQL().update(editarLocalidad);
 			this.llenarTabla();
+			controlador.inicializar();
 			this.ventanaLocalidades.dispose();
 		}
 	}
