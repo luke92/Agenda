@@ -49,19 +49,25 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		return false;
 	}
 
+	@SuppressWarnings("finally")
 	public boolean delete(LocalidadDTO localidad_a_eliminar) {
 		PreparedStatement statement;
-		int chequeoUpdate = 0;
+		boolean resultado = false;
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(delete);
 			statement.setInt(1, localidad_a_eliminar.getIdLocalidad());
-			chequeoUpdate = statement.executeUpdate();
-			if (chequeoUpdate > 0) // Si se ejecut� devuelvo true
-				return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
+			if (statement.executeUpdate() > 0) // Si se ejecutó devuelvo true
+				resultado = true;
+		} 
+		catch (SQLException e) 
+		{
+			resultado = false;
 		}
-		return false;
+		finally
+		{
+			return resultado;
+		}
+		
 	}
 
 	public LocalidadDTO getById(LocalidadDTO localidad_a_obtener) {

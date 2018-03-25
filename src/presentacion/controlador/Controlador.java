@@ -10,17 +10,17 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
-import presentacion.vista.VistaLocalidades;
-import presentacion.vista.VistaTiposContacto;
+import presentacion.vista.VistaABMGenerico;
 import util.Fechas;
+import dto.ABM;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
 	private List<PersonaDTO> personas_en_tabla;
 	private VentanaPersona ventanaPersona;
-	private VistaLocalidades vistaLocalidades;
-	private VistaTiposContacto vistaTiposContacto;
+	private VistaABMGenerico vistaABMLocalidades;
+	private VistaABMGenerico vistaABMTipoContacto;
 	private Agenda agenda;
 
 	public Controlador(Vista vista, Agenda agenda) {
@@ -82,17 +82,17 @@ public class Controlador implements ActionListener {
 		else if (e.getSource() == this.vista.getBtnABMLocalidades()) 
 		{
 			// Verificar si se abrio alguna vez la ventana de abm localidades
-			if (this.vistaLocalidades == null)
-				this.vistaLocalidades = new VistaLocalidades(this);
-			this.vistaLocalidades.show();
+			if (this.vistaABMLocalidades == null)
+				this.vistaABMLocalidades = new VistaABMGenerico(this, ABM.Localidades);
+			this.vistaABMLocalidades.show();
 		}
 
 		else if (e.getSource() == this.vista.getBtnABMTiposContacto()) 
 		{
 			// Verificar si se abrio alguna vez la ventana de abm localidades
-			if (this.vistaTiposContacto == null)
-				this.vistaTiposContacto = new VistaTiposContacto();
-			this.vistaTiposContacto.show();
+			if (this.vistaABMTipoContacto == null)
+				this.vistaABMTipoContacto = new VistaABMGenerico(this,ABM.TiposContacto);
+			this.vistaABMTipoContacto.show();
 		}
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
@@ -119,6 +119,7 @@ public class Controlador implements ActionListener {
 				}
 			});
 		}
+		
 	}
 	
 	private void actionBtnAgregar()
@@ -144,6 +145,7 @@ public class Controlador implements ActionListener {
 			} 
 			else this.ventanaPersona.toFront();
 		}
+		else JOptionPane.showMessageDialog(null, "Seleccione un solo registro");
 	}
 	
 	private void actionBtnBorrar()
@@ -167,6 +169,7 @@ public class Controlador implements ActionListener {
 				}
 				
 			}
+			else JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un registro");
 		} 
 		else this.ventanaPersona.toFront();
 	}

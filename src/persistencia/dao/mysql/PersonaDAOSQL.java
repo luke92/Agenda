@@ -42,7 +42,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(5, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
 			statement.setString(6, persona.getCalle());
 			statement.setInt(7, persona.getAltura());
-			statement.setInt(8, persona.getPiso());
+			statement.setString(8, persona.getPiso());
 			statement.setString(9, persona.getDepto());
 			statement.setInt(10, persona.getLocalidad().getIdLocalidad());
 			statement.setInt(11, persona.getTipoContacto().getIdTipoContacto());
@@ -65,7 +65,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(4, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
 			statement.setString(5, persona.getCalle());
 			statement.setInt(6, persona.getAltura());
-			statement.setInt(7, persona.getPiso());
+			statement.setString(7, persona.getPiso());
 			statement.setString(8, persona.getDepto());
 			statement.setInt(9, persona.getLocalidad().getIdLocalidad());
 			statement.setInt(10, persona.getTipoContacto().getIdTipoContacto());
@@ -109,7 +109,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
 						resultSet.getString("Telefono"), resultSet.getString("Email"),
 						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
-						resultSet.getInt("Piso"), resultSet.getString("Depto"), localidad, tipoContacto));
+						resultSet.getString("Piso"), resultSet.getString("Depto"), localidad, tipoContacto));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -134,7 +134,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
 						resultSet.getString("Telefono"), resultSet.getString("Email"),
 						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
-						resultSet.getInt("Piso"), resultSet.getString("Depto"), localidad, tipoContacto);
+						resultSet.getString("Piso"), resultSet.getString("Depto"), localidad, tipoContacto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

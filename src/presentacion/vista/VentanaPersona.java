@@ -231,7 +231,7 @@ public class VentanaPersona extends JFrame {
 		TipoContactoDTO tipoContacto = cmbTiposContacto.getTipoContacto();
 		PersonaDTO persona = new PersonaDTO(idPersona, this.getTxtNombre().getText(), this.getTxtTelefono().getText(),
 				this.getTxtEmail().getText(), cal, this.getTxtCalle().getText(),
-				Integer.parseInt(this.getTxtAltura().getText()), Integer.parseInt(this.getTxtPiso().getText()),
+				Integer.parseInt(this.getTxtAltura().getText()), this.getTxtPiso().getText(),
 				this.getTxtDpto().getText(), localidad, tipoContacto);
 		return persona;
 	}

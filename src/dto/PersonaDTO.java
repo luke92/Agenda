@@ -11,13 +11,13 @@ public class PersonaDTO {
 	private Calendar fechaNacimiento;
 	private String calle;
 	private int altura;
-	private int piso;
+	private String piso;
 	private String depto;
 	private LocalidadDTO localidad;
 	private TipoContactoDTO tipoContacto;
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento,
-			String calle, int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
+			String calle, int altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -32,7 +32,7 @@ public class PersonaDTO {
 	}
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento, String calle,
-			int altura, int piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
+			int altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -104,11 +104,11 @@ public class PersonaDTO {
 		this.altura = altura;
 	}
 
-	public int getPiso() {
+	public String getPiso() {
 		return piso;
 	}
 
-	public void setPiso(int piso) {
+	public void setPiso(String piso) {
 		this.piso = piso;
 	}
 

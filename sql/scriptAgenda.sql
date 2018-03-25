@@ -24,7 +24,7 @@ CREATE TABLE `personas`
   `FechaNacimiento` date,
   `Calle` varchar(45),
   `Altura` int(6),
-  `Piso` int(3),
+  `Piso` varchar(3),
   `Depto` varchar(10),
   `idLocalidad` int(11),
   `idTipoContacto` int(11),
