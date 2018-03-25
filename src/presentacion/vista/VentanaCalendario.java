@@ -12,6 +12,7 @@ import util.DateLabelFormatter;
 public class VentanaCalendario {
 	public static JDatePickerImpl getPickerToday() {
 		UtilDateModel model = new UtilDateModel();
+		model.setValue(Calendar.getInstance().getTime());
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
@@ -32,4 +33,5 @@ public class VentanaCalendario {
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		return datePicker;
 	}
+	
 }

@@ -57,48 +57,39 @@ public class Controlador implements ActionListener {
 		this.vista.show();
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.vista.getBtnAgregar()) {
-			// Verificar si se abrio alguna vez la ventana para agregar persona
-			if (this.ventanaPersona == null)
-				this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
-			else
-				// Si la ventana esta atras y aprieto el boton Agregar se
-				// muestra la ventana.
-				this.ventanaPersona.toFront();
-		} else if (e.getSource() == this.vista.getBtnEditar()) {
-			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-			if (filas_seleccionadas.length == 1) {
-				if (this.ventanaPersona == null) {
-					PersonaDTO persona_a_obtener = this.agenda
-							.obtenerPersona(this.personas_en_tabla.get(filas_seleccionadas[0]));
-					this.ventanaPersona = new VentanaPersona(this, "Editar", persona_a_obtener);
-				} else
-					this.ventanaPersona.toFront();
-			}
-		} else if (e.getSource() == this.vista.getBtnBorrar()) {
-			if (this.ventanaPersona == null) {
-				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
-				for (int fila : filas_seleccionadas) {
-					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
-					JOptionPane.showMessageDialog(null, "El contacto ha sido borrado");
-				}
-				this.llenarTabla();
-			} else
-				this.ventanaPersona.toFront();
-		} else if (e.getSource() == this.vista.getBtnReporte()) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == this.vista.getBtnAgregar()) 
+		{
+			actionBtnAgregar();
+		} 
+		
+		else if (e.getSource() == this.vista.getBtnEditar()) 
+		{
+			actionBtnEditar();
+		} 
+		
+		else if (e.getSource() == this.vista.getBtnBorrar()) 
+		{
+			actionBtnBorrar();
+		} 
+		
+		else if (e.getSource() == this.vista.getBtnReporte()) 
+		{
 			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 			reporte.mostrar();
 		}
 
-		else if (e.getSource() == this.vista.getBtnABMLocalidades()) {
+		else if (e.getSource() == this.vista.getBtnABMLocalidades()) 
+		{
 			// Verificar si se abrio alguna vez la ventana de abm localidades
 			if (this.vistaLocalidades == null)
 				this.vistaLocalidades = new VistaLocalidades();
 			this.vistaLocalidades.show();
 		}
 
-		else if (e.getSource() == this.vista.getBtnABMTiposContacto()) {
+		else if (e.getSource() == this.vista.getBtnABMTiposContacto()) 
+		{
 			// Verificar si se abrio alguna vez la ventana de abm localidades
 			if (this.vistaTiposContacto == null)
 				this.vistaTiposContacto = new VistaTiposContacto();
@@ -118,7 +109,10 @@ public class Controlador implements ActionListener {
 				// la misma se cierra
 				this.ventanaPersona = null;
 			}
-		} else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) {
+		} 
+		
+		else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) 
+		{
 			PersonaDTO editarPersona = this.ventanaPersona.getDatosPersona();
 			if (!ExpReg.mailValido(editarPersona.getEmail()))
 				JOptionPane.showMessageDialog(null, "Coloque un mail valido");
@@ -133,7 +127,8 @@ public class Controlador implements ActionListener {
 		}
 
 		// Evitar abrir multiples instancias del boton agregar.
-		if (this.ventanaPersona != null) {
+		if (this.ventanaPersona != null) 
+		{
 			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter() {
 				@Override
 				public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -144,5 +139,57 @@ public class Controlador implements ActionListener {
 			});
 		}
 
+	}
+	
+	private void actionBtnAgregar()
+	{
+		// Verificar si se abrio alguna vez la ventana para agregar persona
+		if (this.ventanaPersona == null)
+			this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
+		else
+			// Si la ventana esta atras y aprieto el boton Agregar se
+			// muestra la ventana.
+			this.ventanaPersona.toFront();
+	}
+	
+	private void actionBtnEditar()
+	{
+		int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+		if (filas_seleccionadas.length == 1) 
+		{
+			if (this.ventanaPersona == null) 
+			{
+				PersonaDTO persona_a_obtener = this.agenda.obtenerPersona(this.personas_en_tabla.get(filas_seleccionadas[0]));
+				this.ventanaPersona = new VentanaPersona(this, "Editar", persona_a_obtener);
+			} 
+			else this.ventanaPersona.toFront();
+		}
+	}
+	
+	private void actionBtnBorrar()
+	{
+		if (this.ventanaPersona == null) 
+		{
+			int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+			if(filas_seleccionadas.length > 0)
+			{
+				String mensaje = "";
+				if(filas_seleccionadas.length == 1) mensaje = "el contacto seleccionado?";
+				else mensaje = "los contactos seleccionados?";
+				int dialogResult = JOptionPane.showConfirmDialog (null, "Desea borrar " + mensaje,"Aviso",JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION)
+				{
+					for (int fila : filas_seleccionadas) 
+					{
+						this.agenda.borrarPersona(this.personas_en_tabla.get(fila));	
+					}
+					this.llenarTabla();
+				}
+				
+			}
+			
+			
+		} 
+		else this.ventanaPersona.toFront();
 	}
 }

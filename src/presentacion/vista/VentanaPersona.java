@@ -272,6 +272,11 @@ public class VentanaPersona extends JFrame {
 		if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtAltura().getText()))
 			error += "-Coloque un departamento valido\n";
 		
+		if(cmbLocalidades.getSelectedIndex() < 0)
+			error += "Debe elegir una localidad\n";
+		
+		if(cmbTiposContacto.getSelectedIndex() < 0)
+			error += "Debe elegir un tipo de contacto\n";
 		
 		if(error != "")
 		{
