@@ -10,7 +10,7 @@ import dto.LocalidadDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.LocalidadDAO;
 
-public class LocalidadDAOImpl implements LocalidadDAO {
+public class LocalidadDAOSQL implements LocalidadDAO {
 
 	private static final String insert = "INSERT INTO localidades(idLocalidad, nombre) VALUES(?, ?)";
 	private static final String update = "UPDATE localidades SET nombre = ? WHERE idLocalidad = ?";
@@ -30,9 +30,6 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -48,9 +45,6 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -66,9 +60,6 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -86,9 +77,6 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return localidad;
 	}
@@ -108,9 +96,6 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return localidades;
 	}

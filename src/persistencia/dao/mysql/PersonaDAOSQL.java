@@ -13,7 +13,7 @@ import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoContactoDTO;
 
-public class PersonaDAOImpl implements PersonaDAO {
+public class PersonaDAOSQL implements PersonaDAO {
 	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono, email, fechanacimiento, calle, altura, piso, depto, idLocalidad, idTipoContacto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String update = "UPDATE personas SET nombre = ?, telefono = ?, email = ?, fechanacimiento = ?, calle = ?, altura = ?, piso = ?, depto = ?, idLocalidad = ?, idTipoContacto = ? WHERE idPersona = ?";
 	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
@@ -50,9 +50,6 @@ public class PersonaDAOImpl implements PersonaDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -77,9 +74,6 @@ public class PersonaDAOImpl implements PersonaDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -95,9 +89,6 @@ public class PersonaDAOImpl implements PersonaDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -122,9 +113,6 @@ public class PersonaDAOImpl implements PersonaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return personas;
 	}
@@ -150,9 +138,6 @@ public class PersonaDAOImpl implements PersonaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return persona;
 	}

@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import dto.TipoContactoDTO;
-import persistencia.dao.mysql.TipoContactoDAOImpl;
+import persistencia.dao.mysql.TipoContactoDAOSQL;
 
 public class VistaTiposContacto implements ActionListener {
 	private JFrame frame;
@@ -106,7 +106,7 @@ public class VistaTiposContacto implements ActionListener {
 		this.getModelTiposContacto().setColumnCount(0);
 		this.getModelTiposContacto().setColumnIdentifiers(this.getNombreColumnas());
 
-		this.tiposContacto_en_tabla = new TipoContactoDAOImpl().readAll();
+		this.tiposContacto_en_tabla = new TipoContactoDAOSQL().readAll();
 		for (int i = 0; i < this.tiposContacto_en_tabla.size(); i++) {
 			Object[] fila = { this.tiposContacto_en_tabla.get(i).getNombre(),
 
@@ -127,26 +127,26 @@ public class VistaTiposContacto implements ActionListener {
 		} else if (e.getSource() == this.getBtnEditar()) {
 			int[] filas_seleccionadas = this.getTablaTiposContacto().getSelectedRows();
 			if (filas_seleccionadas.length == 1) {
-				TipoContactoDTO tipoContacto_a_obtener = new TipoContactoDAOImpl()
+				TipoContactoDTO tipoContacto_a_obtener = new TipoContactoDAOSQL()
 						.getById(this.tiposContacto_en_tabla.get(filas_seleccionadas[0]));
 				this.ventanaTiposContacto = new VentanaTiposContacto(this, "Editar", tipoContacto_a_obtener);
 			}
 		} else if (e.getSource() == this.getBtnBorrar()) {
 			int[] filas_seleccionadas = this.getTablaTiposContacto().getSelectedRows();
 			for (int fila : filas_seleccionadas) {
-				new TipoContactoDAOImpl().delete(this.tiposContacto_en_tabla.get(fila));
+				new TipoContactoDAOSQL().delete(this.tiposContacto_en_tabla.get(fila));
 			}
 			this.llenarTabla();
 
 		} else if (e.getSource() == this.ventanaTiposContacto.getBtnAgregarTipoContacto()) {
 			TipoContactoDTO nuevoTipoContacto = this.ventanaTiposContacto.getDatosTipoContacto();
-			new TipoContactoDAOImpl().insert(nuevoTipoContacto);
+			new TipoContactoDAOSQL().insert(nuevoTipoContacto);
 			this.llenarTabla();
 			this.ventanaTiposContacto.dispose();
 			this.ventanaTiposContacto = null;
 		} else if (e.getSource() == this.ventanaTiposContacto.getBtnEditarTipoContacto()) {
 			TipoContactoDTO editarTipoContacto = this.ventanaTiposContacto.getDatosTipoContacto();
-			new TipoContactoDAOImpl().update(editarTipoContacto);
+			new TipoContactoDAOSQL().update(editarTipoContacto);
 			this.llenarTabla();
 			this.ventanaTiposContacto.dispose();
 			this.ventanaTiposContacto = null;

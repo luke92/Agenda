@@ -10,7 +10,7 @@ import dto.TipoContactoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.TipoContactoDAO;
 
-public class TipoContactoDAOImpl implements TipoContactoDAO {
+public class TipoContactoDAOSQL implements TipoContactoDAO {
 	private static final String insert = "INSERT INTO tiposContacto (idTipoContacto, nombre) VALUES(?, ?)";
 	private static final String update = "UPDATE tiposContacto SET nombre = ? WHERE idTipoContacto = ?";
 	private static final String delete = "DELETE FROM tiposContacto WHERE idTipoContacto = ?";
@@ -29,9 +29,6 @@ public class TipoContactoDAOImpl implements TipoContactoDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -47,9 +44,6 @@ public class TipoContactoDAOImpl implements TipoContactoDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -66,9 +60,6 @@ public class TipoContactoDAOImpl implements TipoContactoDAO {
 				return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return false;
 	}
@@ -87,9 +78,6 @@ public class TipoContactoDAOImpl implements TipoContactoDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return tipoContacto;
 	}
@@ -110,9 +98,6 @@ public class TipoContactoDAOImpl implements TipoContactoDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally // Se ejecuta siempre
-		{
-			conexion.cerrarConexion();
 		}
 		return tipoContactos;
 	}

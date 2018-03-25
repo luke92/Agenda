@@ -4,7 +4,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 import dto.TipoContactoDTO;
-import persistencia.dao.mysql.TipoContactoDAOImpl;
+import persistencia.dao.mysql.TipoContactoDAOSQL;
 
 @SuppressWarnings("serial")
 public class ComboBoxTiposContacto extends JComboBox<TipoContactoDTO> {
@@ -13,7 +13,7 @@ public class ComboBoxTiposContacto extends JComboBox<TipoContactoDTO> {
 		super();
 		DefaultComboBoxModel<TipoContactoDTO> value = new DefaultComboBoxModel<TipoContactoDTO>();
 		this.setModel(value);
-		for (TipoContactoDTO tipoContacto : new TipoContactoDAOImpl().readAll()) {
+		for (TipoContactoDTO tipoContacto : new TipoContactoDAOSQL().readAll()) {
 			value.addElement(tipoContacto);
 		}
 	}

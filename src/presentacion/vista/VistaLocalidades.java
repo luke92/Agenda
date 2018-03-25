@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import dto.LocalidadDTO;
-import persistencia.dao.mysql.LocalidadDAOImpl;
+import persistencia.dao.mysql.LocalidadDAOSQL;
 
 public class VistaLocalidades implements ActionListener {
 	private JFrame frame;
@@ -106,7 +106,7 @@ public class VistaLocalidades implements ActionListener {
 		this.getModelLocalidades().setColumnCount(0);
 		this.getModelLocalidades().setColumnIdentifiers(this.getNombreColumnas());
 
-		this.localidades_en_tabla = new LocalidadDAOImpl().readAll();
+		this.localidades_en_tabla = new LocalidadDAOSQL().readAll();
 		for (int i = 0; i < this.localidades_en_tabla.size(); i++) {
 			Object[] fila = { this.localidades_en_tabla.get(i).getNombre(),
 
@@ -122,26 +122,26 @@ public class VistaLocalidades implements ActionListener {
 		} else if (e.getSource() == this.getBtnEditar()) {
 			int[] filas_seleccionadas = this.getTablaLocalidades().getSelectedRows();
 			if (filas_seleccionadas.length == 1) {
-				LocalidadDTO localidad_a_obtener = new LocalidadDAOImpl()
+				LocalidadDTO localidad_a_obtener = new LocalidadDAOSQL()
 						.getById(this.localidades_en_tabla.get(filas_seleccionadas[0]));
 				this.ventanaLocalidades = new VentanaLocalidades(this, "Editar", localidad_a_obtener);
 			}
 		} else if (e.getSource() == this.getBtnBorrar()) {
 			int[] filas_seleccionadas = this.getTablaLocalidades().getSelectedRows();
 			for (int fila : filas_seleccionadas) {
-				new LocalidadDAOImpl().delete(this.localidades_en_tabla.get(fila));
+				new LocalidadDAOSQL().delete(this.localidades_en_tabla.get(fila));
 			}
 
 			this.llenarTabla();
 
 		} else if (e.getSource() == this.ventanaLocalidades.getBtnAgregarLocalidad()) {
 			LocalidadDTO nuevaLocalidad = this.ventanaLocalidades.getDatosLocalidad();
-			new LocalidadDAOImpl().insert(nuevaLocalidad);
+			new LocalidadDAOSQL().insert(nuevaLocalidad);
 			this.llenarTabla();
 			this.ventanaLocalidades.dispose();
 		} else if (e.getSource() == this.ventanaLocalidades.getBtnEditarLocalidad()) {
 			LocalidadDTO editarLocalidad = this.ventanaLocalidades.getDatosLocalidad();
-			new LocalidadDAOImpl().update(editarLocalidad);
+			new LocalidadDAOSQL().update(editarLocalidad);
 			this.llenarTabla();
 			this.ventanaLocalidades.dispose();
 		}

@@ -2,14 +2,15 @@ package modelo;
 
 import java.util.List;
 import dto.PersonaDTO;
+import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.PersonaDAO;
-import persistencia.dao.mysql.PersonaDAOImpl;
 
 public class Agenda {
 	private PersonaDAO persona;
 
-	public Agenda() {
-		persona = new PersonaDAOImpl();
+	public Agenda(DAOAbstractFactory metodo_persistencia) 
+	{
+		persona = metodo_persistencia.createPersonaDAO();
 	}
 
 	public void agregarPersona(PersonaDTO nuevaPersona) {
