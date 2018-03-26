@@ -6,6 +6,9 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
+		<field name="dominioEmail" class="java.lang.String">
+			<fieldDescription><![CDATA[dominioEmail]]></fieldDescription>
+		</field>
 	</subDataset>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<queryString language="SQL">
@@ -178,10 +181,10 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="202" splitType="Stretch"/>
+		<band height="307" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="33" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<textField>
 				<reportElement x="460" y="0" width="40" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
 				<textElement textAlignment="Right"/>
@@ -192,6 +195,13 @@
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="3" y="10" width="315" height="30" uuid="7663cc60-c861-4c66-90d0-6956d1ea9e72"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo 10: Maximiliano Lucero Correa / Lucas Vargas]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 </jasperReport>
