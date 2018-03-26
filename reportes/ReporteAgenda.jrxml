@@ -2,6 +2,11 @@
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="284e0c88-a4b2-4ff8-98a2-d67b80bcffaf">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="Dataset1" uuid="58de74e1-f025-47d0-936f-83b123b9b384">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
 	<parameter name="Fecha" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[]]>
@@ -25,6 +30,23 @@
 		<fieldDescription><![CDATA[dominioEmail]]></fieldDescription>
 	</field>
 	<sortField name="nombre"/>
+	<group name="Mails">
+		<groupExpression><![CDATA[$F{dominioEmail}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement x="0" y="0" width="116" height="20" uuid="0be5af0b-45bf-415c-80b6-413dadfcc8cc"/>
+					<textElement textAlignment="Left">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dominioEmail}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -62,9 +84,9 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="31" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<frame>
-				<reportElement x="2" y="6" width="550" height="23" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
+				<reportElement mode="Opaque" x="2" y="6" width="550" height="23" backcolor="#59D979" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
 				<staticText>
 					<reportElement x="-2" y="0" width="120" height="21" uuid="6f5462fa-eb72-479f-bb27-fb5ef7144791"/>
 					<textElement textAlignment="Left">
@@ -104,29 +126,32 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="29" splitType="Stretch">
+		<band height="7">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+		</band>
+		<band height="30">
 			<textField>
-				<reportElement x="0" y="0" width="122" height="18" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
+				<reportElement x="2" y="1" width="116" height="19" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="1" width="62" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+				<reportElement x="119" y="1" width="63" height="19" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="182" y="1" width="140" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+				<reportElement x="179" y="1" width="140" height="19" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="322" y="1" width="58" height="18" uuid="39280eb1-78fb-4b01-8818-953229a8847a"/>
+				<reportElement x="319" y="1" width="58" height="19" uuid="39280eb1-78fb-4b01-8818-953229a8847a"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{fechaString}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="172" height="18" uuid="6fef673c-a63a-485b-a11b-df4a5b4aa780"/>
+				<reportElement x="377" y="1" width="175" height="19" uuid="6fef673c-a63a-485b-a11b-df4a5b4aa780"/>
 				<textElement textAlignment="Left">
 					<font size="10"/>
 				</textElement>

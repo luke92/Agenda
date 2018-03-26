@@ -150,7 +150,7 @@ public class PersonaDTO {
 	
 	public String getDominioEmail()
 	{
-		return getEmail().substring(getEmail().indexOf("@")+1, getEmail().length()-1);
+		return getEmail().substring(getEmail().indexOf("@")+1, getEmail().length());
 	}
 
 }
