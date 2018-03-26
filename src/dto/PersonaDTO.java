@@ -3,6 +3,8 @@ package dto;
 import java.util.Calendar;
 import java.util.Date;
 
+import util.Fechas;
+
 public class PersonaDTO {
 	private int idPersona;
 	private String nombre;
@@ -139,6 +141,16 @@ public class PersonaDTO {
 	public String getDomicilioCompleto() {
 		return getCalle() + " " + getAltura() + " (" + getPiso() + " " + getDepto() + "), "
 				+ getLocalidad().getNombre();
+	}
+	
+	public String getFechaString()
+	{
+		return Fechas.Fecha_a_String(this.getFechaNacimiento());
+	}
+	
+	public String getDominioEmail()
+	{
+		return getEmail().substring(getEmail().indexOf("@")+1, getEmail().length()-1);
 	}
 
 }
