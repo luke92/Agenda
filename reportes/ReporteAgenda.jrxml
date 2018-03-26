@@ -20,31 +20,34 @@
 	<field name="email" class="java.lang.String">
 		<fieldDescription><![CDATA[email]]></fieldDescription>
 	</field>
-	<field name="domicilioCompleto" class="java.lang.String">
-		<fieldDescription><![CDATA[domicilioCompleto]]></fieldDescription>
-	</field>
 	<field name="fechaString" class="java.lang.String">
 		<fieldDescription><![CDATA[fechaString]]></fieldDescription>
 	</field>
 	<field name="dominioEmail" class="java.lang.String">
 		<fieldDescription><![CDATA[dominioEmail]]></fieldDescription>
 	</field>
+	<field name="domicilioCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[domicilioCompleto]]></fieldDescription>
+	</field>
 	<sortField name="nombre"/>
 	<group name="Mails">
 		<groupExpression><![CDATA[$F{dominioEmail}]]></groupExpression>
 		<groupHeader>
-			<band height="23">
-				<textField>
-					<reportElement x="0" y="0" width="116" height="20" uuid="0be5af0b-45bf-415c-80b6-413dadfcc8cc"/>
-					<textElement textAlignment="Left">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{dominioEmail}]]></textFieldExpression>
-				</textField>
+			<band height="20">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#E0DEDE" uuid="fe598404-9c5e-4067-91d2-613cf8f1661c"/>
+					<textField>
+						<reportElement x="0" y="0" width="116" height="20" uuid="0be5af0b-45bf-415c-80b6-413dadfcc8cc"/>
+						<textElement textAlignment="Left">
+							<font size="12" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{dominioEmail}]]></textFieldExpression>
+					</textField>
+				</frame>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50"/>
+			<band height="30"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -88,28 +91,28 @@
 			<frame>
 				<reportElement mode="Opaque" x="2" y="6" width="550" height="23" backcolor="#59D979" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36"/>
 				<staticText>
-					<reportElement x="-2" y="0" width="120" height="21" uuid="6f5462fa-eb72-479f-bb27-fb5ef7144791"/>
+					<reportElement x="1" y="0" width="118" height="21" uuid="6f5462fa-eb72-479f-bb27-fb5ef7144791"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Nombre y apellido]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="120" y="1" width="60" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<reportElement x="118" y="1" width="58" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Teléfono]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="180" y="1" width="140" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<reportElement x="180" y="1" width="136" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Email]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="320" y="1" width="58" height="20" uuid="94f5127e-1e36-4913-81f7-b79911a2d63a"/>
+					<reportElement x="316" y="1" width="60" height="20" uuid="94f5127e-1e36-4913-81f7-b79911a2d63a"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
@@ -126,37 +129,40 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="7">
+		<band height="4">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 		</band>
-		<band height="30">
-			<textField>
-				<reportElement x="2" y="1" width="116" height="19" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="119" y="1" width="63" height="19" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="179" y="1" width="140" height="19" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="319" y="1" width="58" height="19" uuid="39280eb1-78fb-4b01-8818-953229a8847a"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[$F{fechaString}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="377" y="1" width="175" height="19" uuid="6fef673c-a63a-485b-a11b-df4a5b4aa780"/>
-				<textElement textAlignment="Left">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{domicilioCompleto}]]></textFieldExpression>
-			</textField>
+		<band height="20">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="18" backcolor="#7AD4F5" uuid="88bc82b0-0a1a-45ac-8378-f603b2416e8c"/>
+				<textField>
+					<reportElement x="0" y="0" width="120" height="18" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="121" y="0" width="56" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="178" y="0" width="140" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="318" y="0" width="61" height="18" uuid="39280eb1-78fb-4b01-8818-953229a8847a"/>
+					<textElement textAlignment="Left"/>
+					<textFieldExpression><![CDATA[$F{fechaString}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="378" y="0" width="172" height="18" uuid="6fef673c-a63a-485b-a11b-df4a5b4aa780"/>
+					<textElement textAlignment="Left">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{domicilioCompleto}]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
 	<columnFooter>
