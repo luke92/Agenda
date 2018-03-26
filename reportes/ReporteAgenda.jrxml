@@ -47,7 +47,19 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="30"/>
+			<band height="89">
+				<textField>
+					<reportElement x="432" y="0" width="100" height="15" printWhenGroupChanges="Mails" uuid="b280c509-d593-4af6-9916-0f88b5372ae3"/>
+					<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="380" y="0" width="50" height="15" uuid="6e4d4510-110a-4766-b658-377f120b87a5"/>
+					<textElement textAlignment="Left">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total : ]]></text>
+				</staticText>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
