@@ -12,14 +12,14 @@ public class PersonaDTO {
 	private String email;
 	private Calendar fechaNacimiento;
 	private String calle;
-	private int altura;
+	private String altura;
 	private String piso;
 	private String depto;
 	private LocalidadDTO localidad;
 	private TipoContactoDTO tipoContacto;
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Calendar fechaNacimiento,
-			String calle, int altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
+			String calle, String altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -34,7 +34,7 @@ public class PersonaDTO {
 	}
 
 	public PersonaDTO(int idPersona, String nombre, String telefono, String email, Date fechaNacimiento, String calle,
-			int altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
+			String altura, String piso, String depto, LocalidadDTO localidad, TipoContactoDTO tipoContacto) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -98,11 +98,11 @@ public class PersonaDTO {
 		this.calle = calle;
 	}
 
-	public int getAltura() {
+	public String getAltura() {
 		return altura;
 	}
 
-	public void setAltura(int altura) {
+	public void setAltura(String altura) {
 		this.altura = altura;
 	}
 
@@ -150,7 +150,7 @@ public class PersonaDTO {
 	
 	public String getDominioEmail()
 	{
-		return getEmail().substring(getEmail().indexOf("@")+1, getEmail().length());
+		return getEmail().substring(getEmail().indexOf("@")+1, getEmail().length()).toLowerCase();
 	}
 
 }

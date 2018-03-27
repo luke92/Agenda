@@ -32,6 +32,7 @@
 	<field name="domicilioCompleto" class="java.lang.String">
 		<fieldDescription><![CDATA[domicilioCompleto]]></fieldDescription>
 	</field>
+	<sortField name="dominioEmail"/>
 	<sortField name="nombre"/>
 	<group name="Mails">
 		<groupExpression><![CDATA[$F{dominioEmail}]]></groupExpression>
@@ -91,7 +92,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="4" width="550" height="24" uuid="d078763f-d7ce-421d-8cc3-c9d81fe255f9"/>
 				<staticText>
@@ -113,14 +114,14 @@
 					<text><![CDATA[Nombre y apellido]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="118" y="1" width="58" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<reportElement x="118" y="1" width="71" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
 					<text><![CDATA[Teléfono]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="180" y="1" width="136" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
+					<reportElement x="190" y="1" width="126" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
@@ -156,12 +157,12 @@
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="121" y="0" width="56" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+					<reportElement x="121" y="0" width="70" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="178" y="0" width="140" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
+					<reportElement x="191" y="0" width="127" height="18" uuid="dd3f7d4c-c2c3-4ee6-8d98-1b88fe0228ec"/>
 					<textElement textAlignment="Left"/>
 					<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 				</textField>
@@ -181,7 +182,40 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="307" splitType="Stretch"/>
+		<band height="300" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="90" y="0" width="370" height="280" uuid="b5b079c5-24a0-454e-9e0e-f5b9c4d6e3a2"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset minPercentage="0.0">
+					<keyExpression><![CDATA[$F{dominioEmail}]]></keyExpression>
+					<valueExpression><![CDATA[$V{Mails_COUNT}]]></valueExpression>
+					<labelExpression><![CDATA[$V{Mails_COUNT}.toString()]]></labelExpression>
+				</pieDataset>
+				<piePlot isShowLabels="true" labelFormat="{y} %">
+					<plot orientation="Horizontal" backgroundAlpha="0.98"/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<staticText>
+				<reportElement x="160" y="0" width="230" height="30" uuid="0f2e6829-367e-4af7-b158-57e8d32a5cf7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de personas por correo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="280" width="100" height="20" uuid="24629410-0fb7-4ce5-9001-166d2d5423f7"/>
+				<text><![CDATA[Cantidad Total: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="499" y="280" width="56" height="20" uuid="3ab759b2-e9e0-4c9d-ba61-362db8009465"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="45" splitType="Stretch">

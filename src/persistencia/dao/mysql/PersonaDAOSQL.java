@@ -41,7 +41,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(4, persona.getEmail());
 			statement.setString(5, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
 			statement.setString(6, persona.getCalle());
-			statement.setInt(7, persona.getAltura());
+			statement.setString(7, persona.getAltura());
 			statement.setString(8, persona.getPiso());
 			statement.setString(9, persona.getDepto());
 			statement.setInt(10, persona.getLocalidad().getIdLocalidad());
@@ -64,7 +64,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 			statement.setString(3, persona.getEmail());
 			statement.setString(4, Fechas.Fecha_a_String_MySQL(persona.getFechaNacimiento()));
 			statement.setString(5, persona.getCalle());
-			statement.setInt(6, persona.getAltura());
+			statement.setString(6, persona.getAltura());
 			statement.setString(7, persona.getPiso());
 			statement.setString(8, persona.getDepto());
 			statement.setInt(9, persona.getLocalidad().getIdLocalidad());
@@ -108,7 +108,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 						resultSet.getString("tipoContactoNombre"));
 				personas.add(new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
 						resultSet.getString("Telefono"), resultSet.getString("Email"),
-						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
+						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getString("Altura"),
 						resultSet.getString("Piso"), resultSet.getString("Depto"), localidad, tipoContacto));
 			}
 		} catch (SQLException e) {
@@ -133,7 +133,7 @@ public class PersonaDAOSQL implements PersonaDAO {
 						resultSet.getString("tipoContactoNombre"));
 				persona = new PersonaDTO(resultSet.getInt("idPersona"), resultSet.getString("Nombre"),
 						resultSet.getString("Telefono"), resultSet.getString("Email"),
-						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getInt("Altura"),
+						resultSet.getDate("FechaNacimiento"), resultSet.getString("Calle"), resultSet.getString("Altura"),
 						resultSet.getString("Piso"), resultSet.getString("Depto"), localidad, tipoContacto);
 			}
 		} catch (SQLException e) {

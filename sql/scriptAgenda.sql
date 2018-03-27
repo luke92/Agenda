@@ -23,7 +23,7 @@ CREATE TABLE `personas`
   `Email` varchar(50),
   `FechaNacimiento` date,
   `Calle` varchar(45),
-  `Altura` int(6),
+  `Altura` varchar(6),
   `Piso` varchar(3),
   `Depto` varchar(10),
   `idLocalidad` int(11),
