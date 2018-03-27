@@ -146,13 +146,22 @@ public class VentanaABMGenerico extends JFrame {
 	
 	public boolean datosCorrectos()
 	{
+		String error = "";
 		txtNombre.setText(txtNombre.getText().trim());
 		
 		if(!ExpReg.contieneLetrasNumerosyEspacios(txtNombre.getText()))
+			error += "-Debe ingresar un nombre valido";
+		
+		if(txtNombre.getText().length() > 45)
+			error += "-El nombre no puede tener mas de 45 caracteres";
+		
+		if(error != "")
 		{
-			JOptionPane.showMessageDialog(null, "Debe ingresar un nombre valido");
+			JOptionPane.showMessageDialog(null, error);
 			return false;
 		}
-		return true;
+		else
+			return true;
+		
 	}
 }

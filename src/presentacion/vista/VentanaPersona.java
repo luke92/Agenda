@@ -250,30 +250,51 @@ public class VentanaPersona extends JFrame {
 	
 		if(this.getTxtNombre().getText() == "" || !ExpReg.contieneLetrasyEspacios(this.getTxtNombre().getText()))
 			error += "-Coloque un nombre y apellido valido\n";
+		
+		if(this.getTxtNombre().getText().length() > 45)
+			error += "-El nombre no puede ser de mas de 45 caracteres";
 				
 		if(!ExpReg.telefonoValido(this.getTxtTelefono().getText()))
 			error += "-Coloque un telefono valido\n";
+		
+		if(this.getTxtTelefono().getText().length() > 20)
+			error += "-El Telefono no puede contener mas de 20 caracteres";
 		
 		if (!this.getTxtEmail().getText().isEmpty())
 			if(!ExpReg.mailValido(this.getTxtEmail().getText()))
 				error += "-Coloque un mail valido\n";
 		
+		if(this.getTxtEmail().getText().length() > 50)
+			error += "-El Mail No puede ser de mas de 50 caracteres";
+			
 		if(!this.getTxtCalle().getText().isEmpty() || !this.getTxtAltura().getText().isEmpty())
 		{
 			if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtCalle().getText()))
 				error += "-Coloque una calle valida\n";
 			
 			if (!ExpReg.contieneSoloNumeros(this.getTxtAltura().getText()))
-				error += "-Coloque una altura valida\n";	
+				error += "-Coloque una altura valida\n";
+			
+			if(this.getTxtCalle().getText().length() > 45)
+				error += "-La calle no puede ser de mas de 45 caracteres";
+			
+			if(this.getTxtAltura().getText().length() > 6)
+				error += "-La Altura no puede ser de mas de 6 caracteres";
 		}
 		
 		if (!this.getTxtPiso().getText().isEmpty())
 			if(!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtPiso().getText()))
 				error += "-Coloque un piso valido\n";
 		
+		if(this.getTxtPiso().getText().length() > 3)
+			error += "-El piso no puede ser de mas de 3 caracteres";
+		
 		if(!this.getTxtDpto().getText().isEmpty())
 			if (!ExpReg.contieneLetrasNumerosyEspacios(this.getTxtDpto().getText()))
 				error += "-Coloque un departamento valido\n";
+		
+		if(this.getTxtDpto().getText().length() > 10)
+			error += "-El departamento no puede ser de mas de 10 caracteres";
 		
 		if(cmbLocalidades.getSelectedIndex() < 0)
 			error += "Debe elegir una localidad\n";
