@@ -97,7 +97,7 @@
 				<reportElement x="0" y="4" width="550" height="24" uuid="d078763f-d7ce-421d-8cc3-c9d81fe255f9"/>
 				<staticText>
 					<reportElement x="3" y="2" width="306" height="20" uuid="8bd693bf-e003-4042-a1f8-881763b9ba1e"/>
-					<text><![CDATA[Listado de personas registradas agrupadas por correo electrónico]]></text>
+					<text><![CDATA[Listado de personas registradas agrupadas por correo electronico]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -118,7 +118,7 @@
 					<textElement textAlignment="Left">
 						<font size="14"/>
 					</textElement>
-					<text><![CDATA[Teléfono]]></text>
+					<text><![CDATA[Telefono]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="190" y="1" width="126" height="20" uuid="e2252ea3-811b-43d8-ae6b-e9b261b705f9"/>
@@ -185,7 +185,7 @@
 		<band height="300" splitType="Stretch">
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="90" y="0" width="370" height="280" uuid="b5b079c5-24a0-454e-9e0e-f5b9c4d6e3a2"/>
+					<reportElement x="0" y="0" width="555" height="280" uuid="39ea0c01-fb94-49e0-bfd2-fe2c67b3c76a"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -195,7 +195,7 @@
 					<valueExpression><![CDATA[$V{Mails_COUNT}]]></valueExpression>
 					<labelExpression><![CDATA[$V{Mails_COUNT}.toString()]]></labelExpression>
 				</pieDataset>
-				<piePlot isShowLabels="true" labelFormat="{y} %">
+				<piePlot labelFormat="{0} ({2})" legendLabelFormat="{0} ({2})">
 					<plot orientation="Horizontal" backgroundAlpha="0.98"/>
 					<itemLabel/>
 				</piePlot>
@@ -222,7 +222,7 @@
 			<textField>
 				<reportElement x="460" y="0" width="40" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["P�gina " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="500" y="0" width="54" height="30" uuid="52b869cb-a151-48f6-ad3c-3147a8d111e8"/>
