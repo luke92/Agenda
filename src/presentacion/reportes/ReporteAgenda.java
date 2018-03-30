@@ -2,6 +2,7 @@ package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,9 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import util.Fechas;
 import dto.PersonaDTO;
+import dto.PersonaReporte;
 
 public class ReporteAgenda {
 	private JasperReport reporte;
@@ -22,8 +25,10 @@ public class ReporteAgenda {
 	private JasperPrint reporteLleno;
 
 	// Recibe la lista de personas para armar el reporte
-	public ReporteAgenda(List<PersonaDTO> personas) {
+	public ReporteAgenda(List<PersonaDTO> personasDTO) 
+	{
 		// Hardcodeado
+		List<PersonaReporte> personas = obtenerListadoPersonasReporte(personasDTO);
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 		try {
@@ -40,6 +45,17 @@ public class ReporteAgenda {
 	public void mostrar() {
 		this.reporteViewer = new JasperViewer(this.reporteLleno, false);
 		this.reporteViewer.setVisible(true);
+	}
+	
+	private List<PersonaReporte> obtenerListadoPersonasReporte(List<PersonaDTO> personasDTO)
+	{
+		List<PersonaReporte> personas = new ArrayList<PersonaReporte>();
+		PersonaReporte persona = null;
+		for(PersonaDTO personaDTO : personasDTO)
+		{
+			persona = new PersonaReporte(personaDTO.getNombre(), personaDTO.getTelefono(), personaDTO.getEmail(), Fechas.Fecha_a_String(personaDTO.getFechaNacimiento()), personaDTO.getCalle(), personaDTO.getAltura(), personaDTO.getPiso(), personaDTO.getDepto(), personaDTO.getLocalidad().getNombre(), personaDTO.getTipoContacto().getNombre());
+		}
+		return personas;
 	}
 
 }
