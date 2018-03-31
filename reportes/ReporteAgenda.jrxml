@@ -14,23 +14,23 @@
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[email]]></fieldDescription>
+	</field>
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[nombre]]></fieldDescription>
 	</field>
 	<field name="telefono" class="java.lang.String">
 		<fieldDescription><![CDATA[telefono]]></fieldDescription>
 	</field>
-	<field name="email" class="java.lang.String">
-		<fieldDescription><![CDATA[email]]></fieldDescription>
-	</field>
-	<field name="fechaString" class="java.lang.String">
-		<fieldDescription><![CDATA[fechaString]]></fieldDescription>
-	</field>
-	<field name="dominioEmail" class="java.lang.String">
-		<fieldDescription><![CDATA[dominioEmail]]></fieldDescription>
+	<field name="fechaNacimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[fechaNacimiento]]></fieldDescription>
 	</field>
 	<field name="domicilioCompleto" class="java.lang.String">
 		<fieldDescription><![CDATA[domicilioCompleto]]></fieldDescription>
+	</field>
+	<field name="dominioEmail" class="java.lang.String">
+		<fieldDescription><![CDATA[dominioEmail]]></fieldDescription>
 	</field>
 	<sortField name="dominioEmail"/>
 	<sortField name="nombre"/>
@@ -169,7 +169,7 @@
 				<textField>
 					<reportElement x="318" y="0" width="61" height="18" uuid="39280eb1-78fb-4b01-8818-953229a8847a"/>
 					<textElement textAlignment="Left"/>
-					<textFieldExpression><![CDATA[$F{fechaString}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{fechaNacimiento}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="378" y="0" width="172" height="18" uuid="6fef673c-a63a-485b-a11b-df4a5b4aa780"/>
@@ -220,9 +220,9 @@
 	<pageFooter>
 		<band height="45" splitType="Stretch">
 			<textField>
-				<reportElement x="460" y="0" width="40" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
+				<reportElement x="450" y="0" width="50" height="30" uuid="5ce007da-8e81-48b7-91fd-8e603c20d7ef"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["P�gina " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="500" y="0" width="54" height="30" uuid="52b869cb-a151-48f6-ad3c-3147a8d111e8"/>

@@ -36,7 +36,7 @@ public class ReporteAgenda {
 			this.reporte = (JasperReport) JRLoader
 					.loadObjectFromFile("reportes" + File.separatorChar + "ReporteAgenda.jasper");
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap,
-					new JRBeanCollectionDataSource(personas));
+					new JRBeanCollectionDataSource(personasReporte));
 		} catch (JRException ex) {
 			ex.printStackTrace();
 		}
@@ -50,10 +50,10 @@ public class ReporteAgenda {
 	private List<PersonaReporte> obtenerListadoPersonasReporte(List<PersonaDTO> personasDTO)
 	{
 		List<PersonaReporte> personas = new ArrayList<PersonaReporte>();
-		PersonaReporte persona = null;
 		for(PersonaDTO personaDTO : personasDTO)
 		{
-			persona = new PersonaReporte(personaDTO.getNombre(), personaDTO.getTelefono(), personaDTO.getEmail(), Fechas.Fecha_a_String(personaDTO.getFechaNacimiento()), personaDTO.getCalle(), personaDTO.getAltura(), personaDTO.getPiso(), personaDTO.getDepto(), personaDTO.getLocalidad().getNombre(), personaDTO.getTipoContacto().getNombre());
+			PersonaReporte persona = new PersonaReporte(personaDTO.getNombre(), personaDTO.getTelefono(), personaDTO.getEmail(), Fechas.Fecha_a_String(personaDTO.getFechaNacimiento()), personaDTO.getCalle(), personaDTO.getAltura(), personaDTO.getPiso(), personaDTO.getDepto(), personaDTO.getLocalidad().getNombre(), personaDTO.getTipoContacto().getNombre());
+			personas.add(persona);
 		}
 		return personas;
 	}

@@ -1,10 +1,5 @@
 package dto;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import util.Fechas;
-
 public class PersonaReporte 
 {
 	private String nombre;
@@ -114,7 +109,8 @@ public class PersonaReporte
 		this.tipoContacto = tipoContacto;
 	}
 
-	public String getDomicilioCompleto() {
+	public String getDomicilioCompleto() 
+	{
 		return getCalle() + " " + getAltura() + " (" + getPiso() + " " + getDepto() + "), "
 				+ getLocalidad();
 	}
