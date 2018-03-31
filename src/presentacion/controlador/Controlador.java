@@ -75,8 +75,7 @@ public class Controlador implements ActionListener {
 		
 		else if (e.getSource() == this.vista.getBtnReporte()) 
 		{
-			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
-			reporte.mostrar();
+			actionBtnReporte();
 		}
 
 		else if (e.getSource() == this.vista.getBtnABMLocalidades()) 
@@ -199,6 +198,20 @@ public class Controlador implements ActionListener {
 			// Se habilita abrir la ventana de agregar persona luego de que
 			// la misma se cierra
 			this.ventanaPersona = null;
+		}
+	}
+	
+	private void actionBtnReporte()
+	{
+		int filas = this.vista.getTablaPersonas().getRowCount();
+		if(filas == 0)
+		{
+			JOptionPane.showMessageDialog(null, "Debe haber al menos un registro");
+		}
+		else
+		{
+			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
+			reporte.mostrar();
 		}
 	}
 }

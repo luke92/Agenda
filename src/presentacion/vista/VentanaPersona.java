@@ -248,7 +248,7 @@ public class VentanaPersona extends JFrame {
 		
 		String error = "";
 	
-		if(this.getTxtNombre().getText() == "" || !ExpReg.contieneLetrasyEspacios(this.getTxtNombre().getText()))
+		if(!ExpReg.contieneLetrasyEspacios(this.getTxtNombre().getText()))
 			error += "-Coloque un nombre y apellido valido\n";
 		
 		if(this.getTxtNombre().getText().length() > 45)
@@ -260,9 +260,8 @@ public class VentanaPersona extends JFrame {
 		if(this.getTxtTelefono().getText().length() > 20)
 			error += "-El Telefono no puede contener mas de 20 caracteres";
 		
-		if (!this.getTxtEmail().getText().isEmpty())
-			if(!ExpReg.mailValido(this.getTxtEmail().getText()))
-				error += "-Coloque un mail valido\n";
+		if(!ExpReg.mailValido(this.getTxtEmail().getText()))
+			error += "-Coloque un mail valido\n";
 		
 		if(this.getTxtEmail().getText().length() > 50)
 			error += "-El Mail No puede ser de mas de 50 caracteres";
