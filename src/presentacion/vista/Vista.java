@@ -16,6 +16,7 @@ public class Vista {
 	private JButton btnReporte;
 	private JButton btnABMLocalidades;
 	private JButton btnABMTiposContacto;
+	private JButton btnConexion;
 	private DefaultTableModel modelPersonas;
 	private String[] nombreColumnas = { "Nombre y apellido", "Tel\u00e9fono", "Email", "Cumplea\u00f1os", "Tipo",
 			"Domicilio" };
@@ -81,7 +82,11 @@ public class Vista {
 		btnABMTiposContacto = new JButton("ABM Tipos de Contacto");
 		btnABMTiposContacto.setBounds(410, 228, 170, 23);
 		panel.add(btnABMTiposContacto);
-
+		
+		btnConexion = new JButton("Cambiar Servidor");
+		btnConexion.setBounds(600, 195, 170, 23);
+		panel.add(btnConexion);
+		
 		frame.setTitle("TP Inicial - AGENDA");
 	}
 
@@ -111,6 +116,10 @@ public class Vista {
 
 	public JButton getBtnABMTiposContacto() {
 		return btnABMTiposContacto;
+	}
+
+	public JButton getBtnConexion() {
+		return btnConexion;
 	}
 
 	public DefaultTableModel getModelPersonas() {

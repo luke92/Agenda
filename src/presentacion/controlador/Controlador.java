@@ -7,12 +7,18 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import modelo.Agenda;
+import persistencia.conexion.Conexion;
+import persistencia.conexion.ConfJson;
+import persistencia.dao.mysql.LocalidadDAOSQL;
+import persistencia.dao.mysql.TipoContactoDAOSQL;
 import presentacion.reportes.ReporteAgenda;
+import presentacion.vista.VentanaConexion;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import presentacion.vista.VistaABMGenerico;
 import util.Fechas;
 import dto.ABM;
+import dto.ConexionDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
@@ -21,9 +27,11 @@ public class Controlador implements ActionListener {
 	private VentanaPersona ventanaPersona;
 	private VistaABMGenerico vistaABMLocalidades;
 	private VistaABMGenerico vistaABMTipoContacto;
+	private VentanaConexion ventanaConexion;
 	private Agenda agenda;
 
-	public Controlador(Vista vista, Agenda agenda) {
+	public Controlador(Vista vista, Agenda agenda) 
+	{
 		this.vista = vista;
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEditar().addActionListener(this);
@@ -31,15 +39,26 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnReporte().addActionListener(this);
 		this.vista.getBtnABMLocalidades().addActionListener(this);
 		this.vista.getBtnABMTiposContacto().addActionListener(this);
+		this.vista.getBtnConexion().addActionListener(this);
 		this.agenda = agenda;
 		this.personas_en_tabla = null;
+
 	}
 
-	public void inicializar() {
-		this.llenarTabla();
+	@SuppressWarnings("deprecation")
+	public void inicializar() 
+	{
+		if(!Conexion.conexionExitosa)
+		{
+			this.ventanaConexion = new VentanaConexion(this);
+			this.ventanaConexion.show();
+		}
+		else
+			this.llenarTabla();
 	}
 
-	private void llenarTabla() {
+	private void llenarTabla() 
+	{
 		this.vista.getModelPersonas().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelPersonas().setColumnCount(0);
 		this.vista.getModelPersonas().setColumnIdentifiers(this.vista.getNombreColumnas());
@@ -56,6 +75,7 @@ public class Controlador implements ActionListener {
 		this.vista.show();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == this.vista.getBtnAgregar()) 
@@ -93,6 +113,18 @@ public class Controlador implements ActionListener {
 				this.vistaABMTipoContacto = new VistaABMGenerico(this,ABM.TiposContacto);
 			this.vistaABMTipoContacto.show();
 		}
+		
+		else if (e.getSource() == this.vista.getBtnConexion())
+		{
+			if(this.ventanaConexion == null)
+				this.ventanaConexion = new VentanaConexion(this);
+			this.ventanaConexion.show();
+		}
+		
+		else if (e.getSource() == this.ventanaConexion.getBtnActualizar())
+		{
+			actionBtnActualizarConexion();
+		}
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
 		{
@@ -119,17 +151,39 @@ public class Controlador implements ActionListener {
 			});
 		}
 		
+		
+		
+		
+		
 	}
 	
 	private void actionBtnAgregar()
 	{
-		// Verificar si se abrio alguna vez la ventana para agregar persona
-		if (this.ventanaPersona == null)
-			this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
+		String error = "";
+		if(new LocalidadDAOSQL().cantidad() == 0)
+		{
+			error += "Debe agregarse una Localidad\n";
+		}
+		
+		if(new TipoContactoDAOSQL().cantidad() == 0)
+		{
+			error += "Debe agregarse un Tipo de contacto\n";
+		}
+		
+		if(error != "")
+			JOptionPane.showMessageDialog(null, error);
 		else
-			// Si la ventana esta atras y aprieto el boton Agregar se
-			// muestra la ventana.
-			this.ventanaPersona.toFront();
+		{
+			// Verificar si se abrio alguna vez la ventana para agregar persona
+			if (this.ventanaPersona == null)
+			{
+				this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
+			}
+			else
+				// Si la ventana esta atras y aprieto el boton Agregar se
+				// muestra la ventana.
+				this.ventanaPersona.toFront();
+		}
 	}
 	
 	private void actionBtnEditar()
@@ -212,6 +266,18 @@ public class Controlador implements ActionListener {
 		{
 			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 			reporte.mostrar();
+		}
+	}
+	
+	private void actionBtnActualizarConexion()
+	{
+		if(this.ventanaConexion.datosCorrectos())
+		{
+			ConexionDTO conexion = this.ventanaConexion.getDatosConexion();
+			ConfJson.writeJSON(conexion);
+			Conexion.reconectar();
+			this.ventanaConexion.dispose();
+			this.ventanaConexion = null;
 		}
 	}
 }

@@ -7,7 +7,8 @@ import presentacion.vista.Vista;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		Vista vista = new Vista();
 		Agenda modelo = new Agenda(new DAOSQLFactory());
 		Controlador controlador = new Controlador(vista, modelo);

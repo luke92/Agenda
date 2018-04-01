@@ -35,4 +35,19 @@ public abstract class ExpReg
 	{
 		return Pattern.matches("^[\\w\\d\\-_\\s]+$", text);
 	}
+	
+	public static boolean ipValido(String text)
+	{
+		return Pattern.matches("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", text);
+	}
+	
+	public static boolean nombreServidorValido(String text)
+	{
+		return Pattern.matches("^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", text);
+	}
+	
+	public static boolean nombreUsuarioValido(String text)
+	{
+		return Pattern.matches("^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$", text);
+	}
 }

@@ -16,6 +16,7 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 	private static final String delete = "DELETE FROM tiposContacto WHERE idTipoContacto = ?";
 	private static final String readall = "SELECT * FROM tiposContacto";
 	private static final String getById = "SELECT * FROM tiposContacto WHERE idTipoContacto = ?";
+	private static final String count = "SELECT COUNT(nombre) as cantidad FROM tiposContacto";
 	private static final Conexion conexion = Conexion.getConexion();
 
 	public boolean update(TipoContactoDTO tipoContacto_a_editar) {
@@ -100,6 +101,25 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 			e.printStackTrace();
 		}
 		return tipoContactos;
+	}
+	
+	public int cantidad()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		int cantidad = 0;
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(count);
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) 
+			{
+				cantidad = resultSet.getInt("cantidad");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantidad;
 	}
 
 }

@@ -224,7 +224,8 @@ public class VentanaPersona extends JFrame {
 		return btnEditarPersona;
 	}
 
-	public PersonaDTO getDatosPersona() {
+	public PersonaDTO getDatosPersona() 
+	{
 		String fecha = datePicker.getJFormattedTextField().getText().trim();
 		Calendar cal = Fechas.String_a_Fecha(fecha);
 		LocalidadDTO localidad = cmbLocalidades.getLocalidad();

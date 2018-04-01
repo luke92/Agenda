@@ -17,6 +17,7 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 	private static final String delete = "DELETE FROM localidades WHERE idLocalidad = ?";
 	private static final String readall = "SELECT * FROM localidades";
 	private static final String getById = "SELECT * FROM localidades WHERE idLocalidad = ?";
+	private static final String count = "SELECT COUNT(nombre) as cantidad FROM localidades";
 	private static final Conexion conexion = Conexion.getConexion();
 
 	public boolean update(LocalidadDTO localidad_a_editar) {
@@ -104,6 +105,25 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 			e.printStackTrace();
 		}
 		return localidades;
+	}
+	
+	public int cantidad()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		int cantidad = 0;
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(count);
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) 
+			{
+				cantidad = resultSet.getInt("cantidad");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantidad;
 	}
 
 }
