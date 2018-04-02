@@ -45,13 +45,12 @@ public class Controlador implements ActionListener {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public void inicializar() 
 	{
-		if(!Conexion.conexionExitosa)
+		if(!Conexion.conexionEstablecida)
 		{
 			this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.show();
+			this.ventanaConexion.toFront();
 		}
 		else
 			this.llenarTabla();
@@ -75,7 +74,6 @@ public class Controlador implements ActionListener {
 		this.vista.show();
 	}
 
-	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == this.vista.getBtnAgregar()) 
@@ -118,7 +116,7 @@ public class Controlador implements ActionListener {
 		{
 			if(this.ventanaConexion == null)
 				this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.show();
+			this.ventanaConexion.toFront();
 		}
 		
 		else if (e.getSource() == this.ventanaConexion.getBtnActualizar())
@@ -152,7 +150,14 @@ public class Controlador implements ActionListener {
 		}
 		
 		
-		
+			this.ventanaConexion.addWindowListener(new java.awt.event.WindowAdapter() 
+			{
+				@Override
+				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+				{
+					inicializar();
+				}
+			});
 		
 		
 	}
@@ -273,11 +278,18 @@ public class Controlador implements ActionListener {
 	{
 		if(this.ventanaConexion.datosCorrectos())
 		{
-			ConexionDTO conexion = this.ventanaConexion.getDatosConexion();
-			ConfJson.writeJSON(conexion);
-			Conexion.reconectar();
-			this.ventanaConexion.dispose();
-			this.ventanaConexion = null;
+			ConexionDTO conexionDTO = this.ventanaConexion.getDatosConexion();
+			Conexion conexion = new Conexion(conexionDTO);
+			if(conexion.conexionEstablecida)
+			{
+				ConfJson.writeJSON(conexionDTO);
+				Conexion.reconectar();
+				this.ventanaConexion.dispose();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }

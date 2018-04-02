@@ -9,20 +9,29 @@ public class Conexion
 {
 	public static Conexion instancia;
 	private Connection conexion;
-	public static ConexionDTO conexionDTO;
-	public static boolean conexionExitosa;
+	public static boolean conexionEstablecida;
 	
 	public Conexion() 
 	{
-		conexionDTO = ConfJson.readJSON();
+		ConexionDTO conexionDTO = ConfJson.readJSON();
+		establecerParametros(conexionDTO);
+	}
+	
+	private void establecerParametros(ConexionDTO conexionDTO)
+	{
 		try {
 			conexion = DriverManager.getConnection("jdbc:mysql://" + conexionDTO.getServidor() + ":" + conexionDTO.getPuerto() + "/" + conexionDTO.getBaseDatos(), conexionDTO.getUsuario(), conexionDTO.getClave());
 			System.out.println("Conexion exitosa");
-			conexionExitosa = true;
+			conexionEstablecida = true;
 		} catch (Exception e) {
 			System.out.println("Conexion fallida");
-			conexionExitosa = false;
+			conexionEstablecida = false;
 		}
+	}
+	
+	public Conexion(ConexionDTO conexionDTO)
+	{
+		establecerParametros(conexionDTO);
 	}
 
 	public static Conexion getConexion() {
@@ -45,4 +54,5 @@ public class Conexion
 		instancia = null;
 		instancia = new Conexion();
 	}
+	
 }

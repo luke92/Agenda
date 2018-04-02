@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import dto.ConexionDTO;
+import persistencia.conexion.ConfJson;
 import util.ExpReg;
 
 
@@ -103,6 +104,21 @@ public class VentanaConexion extends JFrame {
 		
 		this.setTitle("Configurar conexión");
 		
+		inicializarCampos();
+		
+	}
+	
+	private void inicializarCampos()
+	{
+		ConexionDTO conexionDTO = ConfJson.readJSON();
+		if(conexionDTO != null)
+		{
+			txtServidor.setText(conexionDTO.getServidor());
+			txtPuerto.setText(conexionDTO.getPuerto());
+			txtUsuario.setText(conexionDTO.getUsuario());
+			txtContraseña.setText(conexionDTO.getClave());
+			txtBaseDatos.setText(conexionDTO.getBaseDatos());
+		}
 	}
 	
 	public JTextField getTxtServidor() {
