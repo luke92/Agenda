@@ -155,7 +155,7 @@ public class Controlador implements ActionListener {
 				@Override
 				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
 				{
-					inicializar();
+					llenarTabla();
 				}
 			});
 		
