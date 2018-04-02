@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 
 import modelo.Agenda;
 import persistencia.conexion.Conexion;
-import persistencia.conexion.ConfJson;
 import persistencia.dao.mysql.LocalidadDAOSQL;
 import persistencia.dao.mysql.TipoContactoDAOSQL;
 import presentacion.reportes.ReporteAgenda;
@@ -18,11 +17,10 @@ import presentacion.vista.Vista;
 import presentacion.vista.VistaABMGenerico;
 import util.Fechas;
 import dto.ABM;
-import dto.ConexionDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
-	private Vista vista;
+	public Vista vista;
 	private List<PersonaDTO> personas_en_tabla;
 	private VentanaPersona ventanaPersona;
 	private VistaABMGenerico vistaABMLocalidades;
@@ -50,7 +48,7 @@ public class Controlador implements ActionListener {
 		if(!Conexion.conexionEstablecida)
 		{
 			this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.toFront();
+			this.ventanaConexion.show();
 		}
 		else
 			this.llenarTabla();
@@ -116,12 +114,7 @@ public class Controlador implements ActionListener {
 		{
 			if(this.ventanaConexion == null)
 				this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.toFront();
-		}
-		
-		else if (e.getSource() == this.ventanaConexion.getBtnActualizar())
-		{
-			actionBtnActualizarConexion();
+			this.ventanaConexion.show();
 		}
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
@@ -147,19 +140,7 @@ public class Controlador implements ActionListener {
 					ventanaPersona = null;
 				}
 			});
-		}
-		
-		
-			this.ventanaConexion.addWindowListener(new java.awt.event.WindowAdapter() 
-			{
-				@Override
-				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-				{
-					llenarTabla();
-				}
-			});
-		
-		
+		}	
 	}
 	
 	private void actionBtnAgregar()
@@ -271,25 +252,6 @@ public class Controlador implements ActionListener {
 		{
 			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 			reporte.mostrar();
-		}
-	}
-	
-	private void actionBtnActualizarConexion()
-	{
-		if(this.ventanaConexion.datosCorrectos())
-		{
-			ConexionDTO conexionDTO = this.ventanaConexion.getDatosConexion();
-			Conexion conexion = new Conexion(conexionDTO);
-			if(conexion.conexionEstablecida)
-			{
-				ConfJson.writeJSON(conexionDTO);
-				Conexion.reconectar();
-				this.ventanaConexion.dispose();
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
-			}
 		}
 	}
 }

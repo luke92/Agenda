@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -11,15 +12,18 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import dto.ConexionDTO;
+import persistencia.conexion.Conexion;
 import persistencia.conexion.ConfJson;
+import presentacion.controlador.Controlador;
 import util.ExpReg;
 
 
-public class VentanaConexion extends JFrame {
+public class VentanaConexion implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtServidor;
 	private JTextField txtPuerto;
@@ -27,24 +31,26 @@ public class VentanaConexion extends JFrame {
 	private JTextField txtContraseña;
 	private JTextField txtBaseDatos;
 	private JButton btnActualizar;
-	private ActionListener controlador;
+	private Controlador controlador;
 	private JPanel panel;
 
-	public VentanaConexion(ActionListener controlador) 
+	public VentanaConexion(Controlador controlador) 
 	{
 		super();
 		this.controlador = controlador;
 		inicializar();
-		this.setVisible(true);
+		this.getBtnActualizar().addActionListener(this);
+		this.frame.setVisible(true);
 	}
 	
 	private void inicializar()
 	{
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 350, 350);
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 350, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		panel = new JPanel();
@@ -102,7 +108,7 @@ public class VentanaConexion extends JFrame {
 		btnActualizar.setBounds(90, 250, 100, 23);
 		panel.add(btnActualizar);
 		
-		this.setTitle("Configurar conexión");
+		this.frame.setTitle("Configurar conexión");
 		
 		inicializarCampos();
 		
@@ -192,6 +198,10 @@ public class VentanaConexion extends JFrame {
 		
 	}
 	
+	public void show() {
+		this.frame.setVisible(true);
+	}
+	
 	public ConexionDTO getDatosConexion() 
 	{
 		String servidor = this.getTxtServidor().getText();
@@ -204,5 +214,38 @@ public class VentanaConexion extends JFrame {
 		
 		return conexion;
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == this.getBtnActualizar())
+		{
+			actionBtnActualizarConexion();
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	private void actionBtnActualizarConexion()
+	{
+		if(this.datosCorrectos())
+		{
+			ConexionDTO conexionDTO = this.getDatosConexion();
+			Conexion conexion = new Conexion(conexionDTO);
+			if(conexion.conexionEstablecida)
+			{
+				ConfJson.writeJSON(conexionDTO);
+				Conexion.reconectar();
+				this.frame.dispose();
+				this.controlador.vista.show();
+				this.controlador.inicializar();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	
 
 }
