@@ -52,7 +52,7 @@ public class TipoContactoDTO {
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
-		} else if (!nombre.toLowerCase().equals(other.nombre.toLowerCase()))
+		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
 	}
