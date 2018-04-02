@@ -156,6 +156,11 @@ public class VentanaConexion implements ActionListener {
 		return btnActualizar;
 	}
 	
+	public JFrame getFrame()
+	{
+		return this.frame;
+	}
+	
 	public boolean datosCorrectos()
 	{
 		String error = "";
@@ -235,9 +240,8 @@ public class VentanaConexion implements ActionListener {
 			{
 				ConfJson.writeJSON(conexionDTO);
 				Conexion.reconectar();
-				this.frame.dispose();
-				this.controlador.vista.show();
 				this.controlador.inicializar();
+				this.frame.dispose();
 			}
 			else
 			{

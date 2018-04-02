@@ -48,7 +48,6 @@ public class Controlador implements ActionListener {
 		if(!Conexion.conexionEstablecida)
 		{
 			this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.show();
 		}
 		else
 			this.llenarTabla();
@@ -114,7 +113,7 @@ public class Controlador implements ActionListener {
 		{
 			if(this.ventanaConexion == null)
 				this.ventanaConexion = new VentanaConexion(this);
-			this.ventanaConexion.show();
+			else this.ventanaConexion.show();
 		}
 
 		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
@@ -140,7 +139,21 @@ public class Controlador implements ActionListener {
 					ventanaPersona = null;
 				}
 			});
-		}	
+		}
+		
+		if (this.ventanaConexion != null)
+		{
+			this.ventanaConexion.getFrame().addWindowListener(new java.awt.event.WindowAdapter() 
+			{
+				@Override
+				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+				{
+					// Se habilita abrir la ventana de agregar persona luego de
+					// que la misma se cierra
+					ventanaConexion = null;
+				}
+			});
+		}
 	}
 	
 	private void actionBtnAgregar()
