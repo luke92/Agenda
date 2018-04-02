@@ -42,16 +42,16 @@ public class Conexion
 	}
 
 	public Connection getSQLConexion() {
-		return conexion;
+		return instancia.conexion;
 	}
 
-	public void cerrarConexion() {
+	public static void cerrarConexion() {
 		instancia = null;
 	}
 	
 	public static void reconectar()
 	{
-		instancia = null;
+		cerrarConexion();
 		instancia = new Conexion();
 	}
 	

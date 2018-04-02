@@ -148,6 +148,17 @@ public class VentanaPersona extends JFrame {
 			inicializarEditar(panel, persona);
 
 		this.setVisible(true);
+		
+		this.addWindowListener(new java.awt.event.WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+			{
+				// Se habilita abrir la ventana de agregar persona luego de
+				// que la misma se cierra
+				controlador.setNullVentanaPersona();
+			}
+		});
 	}
 
 	private void inicializarAgregar(JPanel panel) {

@@ -46,6 +46,7 @@ public class Controlador implements ActionListener {
 
 	public void inicializar() 
 	{
+		this.ventanaConexion = null;
 		if(!Conexion.conexionEstablecida)
 		{
 			this.ventanaConexion = new VentanaConexion(this);
@@ -117,43 +118,16 @@ public class Controlador implements ActionListener {
 			else this.ventanaConexion.show();
 		}
 
-		else if (e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
+		else if (this.ventanaPersona != null)
 		{
-			actionBtnAgregarPersona();
-		} 
-		
-		else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) 
-		{
-			actionBtnEditarPersona();
-		}
-
-		// Evitar abrir multiples instancias del boton agregar.
-		if (this.ventanaPersona != null) 
-		{
-			this.ventanaPersona.addWindowListener(new java.awt.event.WindowAdapter() 
+			if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona()) 
 			{
-				@Override
-				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-				{
-					// Se habilita abrir la ventana de agregar persona luego de
-					// que la misma se cierra
-					ventanaPersona = null;
-				}
-			});
-		}
-		
-		if (this.ventanaConexion != null)
-		{
-			this.ventanaConexion.getFrame().addWindowListener(new java.awt.event.WindowAdapter() 
+				actionBtnAgregarPersona();
+			}
+			else if (e.getSource() == this.ventanaPersona.getBtnEditarPersona()) 
 			{
-				@Override
-				public void windowClosing(java.awt.event.WindowEvent windowEvent) 
-				{
-					// Se habilita abrir la ventana de agregar persona luego de
-					// que la misma se cierra
-					ventanaConexion = null;
-				}
-			});
+				actionBtnEditarPersona();
+			}
 		}
 	}
 	
@@ -267,5 +241,15 @@ public class Controlador implements ActionListener {
 			ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 			reporte.mostrar();
 		}
+	}
+	
+	public void setNullVentanaPersona()
+	{
+		this.ventanaPersona = null;
+	}
+	
+	public void setNullVentanaConexion()
+	{
+		this.ventanaConexion = null;
 	}
 }

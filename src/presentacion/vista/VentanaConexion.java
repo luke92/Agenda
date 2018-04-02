@@ -40,6 +40,18 @@ public class VentanaConexion implements ActionListener {
 		this.controlador = controlador;
 		inicializar();
 		this.getBtnActualizar().addActionListener(this);
+		
+		this.getFrame().addWindowListener(new java.awt.event.WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) 
+			{
+				// Se habilita abrir la ventana de agregar persona luego de
+				// que la misma se cierra
+				controlador.setNullVentanaConexion();
+			}
+		});
+		
 		this.frame.setVisible(true);
 	}
 	
@@ -52,7 +64,7 @@ public class VentanaConexion implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		panel = new JPanel();
 		panel.setBounds(10, 11, 340, 340);
 		contentPane.add(panel);
@@ -238,10 +250,11 @@ public class VentanaConexion implements ActionListener {
 			Conexion conexion = new Conexion(conexionDTO);
 			if(conexion.conexionEstablecida)
 			{
+				conexion.cerrarConexion();
 				ConfJson.writeJSON(conexionDTO);
-				Conexion.reconectar();
-				this.controlador.inicializar();
 				this.frame.dispose();
+				Conexion.reconectar();
+				controlador.inicializar();
 			}
 			else
 			{
