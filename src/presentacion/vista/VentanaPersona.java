@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
+import dto.Accion;
 import dto.LocalidadDTO;
 import dto.PersonaDTO;
 import dto.TipoContactoDTO;
@@ -38,7 +39,7 @@ public class VentanaPersona extends JFrame {
 	private JButton btnEditarPersona;
 	private Controlador controlador;
 
-	public VentanaPersona(Controlador controlador, String accion, PersonaDTO persona) {
+	public VentanaPersona(Controlador controlador, Accion accion, PersonaDTO persona) {
 		super();
 		this.controlador = controlador;
 
@@ -141,7 +142,7 @@ public class VentanaPersona extends JFrame {
 		cmbTiposContacto.setBounds(133, 371, 164, 20);
 		panel.add(cmbTiposContacto);
 
-		if (accion == "Agregar")
+		if (accion == Accion.Agregar)
 			inicializarAgregar(panel);
 		else
 			inicializarEditar(panel, persona);

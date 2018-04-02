@@ -17,6 +17,7 @@ import presentacion.vista.Vista;
 import presentacion.vista.VistaABMGenerico;
 import util.Fechas;
 import dto.ABM;
+import dto.Accion;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener {
@@ -176,7 +177,7 @@ public class Controlador implements ActionListener {
 			// Verificar si se abrio alguna vez la ventana para agregar persona
 			if (this.ventanaPersona == null)
 			{
-				this.ventanaPersona = new VentanaPersona(this, "Agregar", null);
+				this.ventanaPersona = new VentanaPersona(this, Accion.Agregar, null);
 			}
 			else
 				// Si la ventana esta atras y aprieto el boton Agregar se
@@ -193,7 +194,7 @@ public class Controlador implements ActionListener {
 			if (this.ventanaPersona == null) 
 			{
 				PersonaDTO persona_a_obtener = this.agenda.obtenerPersona(this.personas_en_tabla.get(filas_seleccionadas[0]));
-				this.ventanaPersona = new VentanaPersona(this, "Editar", persona_a_obtener);
+				this.ventanaPersona = new VentanaPersona(this, Accion.Editar, persona_a_obtener);
 			} 
 			else this.ventanaPersona.toFront();
 		}
