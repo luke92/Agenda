@@ -24,7 +24,8 @@ public class VentanaABMGenerico extends JFrame {
 	private JButton btnEditarABM;
 	private ActionListener controlador;
 	private JPanel panel;
-
+	private String nombreABM;
+	
 	public VentanaABMGenerico(ActionListener controlador, Accion accion, LocalidadDTO localidad) 
 	{
 		super();
@@ -50,10 +51,14 @@ public class VentanaABMGenerico extends JFrame {
 		{
 			inicializarAgregar(panel);
 			this.setTitle("Agregar Tipo Contacto");
+			nombreABM = "";
 		}
 		
 		else
+		{
 			inicializarEditar(panel, tipoContacto);
+			nombreABM = txtNombre.getText();
+		}
 		this.setVisible(true);
 	}
 	
@@ -101,6 +106,7 @@ public class VentanaABMGenerico extends JFrame {
 		btnEditarABM.addActionListener(this.controlador);
 		btnEditarABM.setBounds(208, 60, 95, 23);
 		panel.add(btnEditarABM);
+		
 	}
 	
 	private void inicializarEditar(JPanel panel, TipoContactoDTO tipoContacto) 
@@ -154,6 +160,10 @@ public class VentanaABMGenerico extends JFrame {
 		
 		if(txtNombre.getText().length() > 45)
 			error += "-El nombre no puede tener mas de 45 caracteres";
+		
+		if(!txtNombre.getText().isEmpty())
+				if(nombreABM.equals(txtNombre.getText()))
+					error += "El nombre es igual al anterior";
 		
 		if(error != "")
 		{

@@ -247,19 +247,29 @@ public class VentanaConexion implements ActionListener {
 		if(this.datosCorrectos())
 		{
 			ConexionDTO conexionDTO = this.getDatosConexion();
-			Conexion conexion = new Conexion(conexionDTO);
-			if(conexion.conexionEstablecida)
+			
+			if(!conexionDTO.equals(ConfJson.readJSON()))
 			{
-				conexion.cerrarConexion();
-				ConfJson.writeJSON(conexionDTO);
-				this.frame.dispose();
-				Conexion.reconectar();
-				controlador.inicializar();
+				Conexion conexion = new Conexion(conexionDTO);
+				
+				if(conexion.conexionEstablecida)
+				{
+					conexion.cerrarConexion();
+					ConfJson.writeJSON(conexionDTO);
+					this.frame.dispose();
+					Conexion.reconectar();
+					controlador.inicializar();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Los datos de conexion son los mismos");
 			}
+			
 		}
 	}
 	

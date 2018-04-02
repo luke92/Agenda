@@ -38,11 +38,13 @@ public class VentanaPersona extends JFrame {
 	private JButton btnAgregarPersona;
 	private JButton btnEditarPersona;
 	private Controlador controlador;
-
+	private PersonaDTO personaDTO;
+	
 	public VentanaPersona(Controlador controlador, Accion accion, PersonaDTO persona) {
 		super();
 		this.controlador = controlador;
-
+		personaDTO = persona;
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 350, 530);
 		contentPane = new JPanel();
@@ -314,6 +316,9 @@ public class VentanaPersona extends JFrame {
 		if(cmbTiposContacto.getSelectedIndex() < 0)
 			error += "Debe elegir un tipo de contacto\n";
 		
+		if(this.personaDTO.equals(getDatosPersona()))
+				error += "Los datos de Persona son los mismos";
+				
 		if(error != "")
 		{
 			JOptionPane.showMessageDialog(null, error);

@@ -142,4 +142,85 @@ public class PersonaDTO {
 				+ getLocalidad();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((altura == null) ? 0 : altura.hashCode());
+		result = prime * result + ((calle == null) ? 0 : calle.hashCode());
+		result = prime * result + ((depto == null) ? 0 : depto.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((fechaNacimiento == null) ? 0 : fechaNacimiento.hashCode());
+		result = prime * result + ((localidad == null) ? 0 : localidad.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((piso == null) ? 0 : piso.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
+		result = prime * result + ((tipoContacto == null) ? 0 : tipoContacto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PersonaDTO other = (PersonaDTO) obj;
+		if (altura == null) {
+			if (other.altura != null)
+				return false;
+		} else if (!altura.equals(other.altura))
+			return false;
+		if (calle == null) {
+			if (other.calle != null)
+				return false;
+		} else if (!calle.equals(other.calle))
+			return false;
+		if (depto == null) {
+			if (other.depto != null)
+				return false;
+		} else if (!depto.equals(other.depto))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (fechaNacimiento == null) {
+			if (other.fechaNacimiento != null)
+				return false;
+		} else if (!fechaNacimiento.equals(other.fechaNacimiento))
+			return false;
+		if (localidad == null) {
+			if (other.localidad != null)
+				return false;
+		} else if (!localidad.equals(other.localidad))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (piso == null) {
+			if (other.piso != null)
+				return false;
+		} else if (!piso.equals(other.piso))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		if (tipoContacto == null) {
+			if (other.tipoContacto != null)
+				return false;
+		} else if (!tipoContacto.equals(other.tipoContacto))
+			return false;
+		return true;
+	}
+	
+	
+
 }
