@@ -316,7 +316,8 @@ public class VentanaPersona extends JFrame {
 		if(cmbTiposContacto.getSelectedIndex() < 0)
 			error += "Debe elegir un tipo de contacto\n";
 		
-		if(this.personaDTO.equals(getDatosPersona()))
+		if(this.personaDTO != null)
+			if(this.personaDTO.equals(getDatosPersona()))
 				error += "Los datos de Persona son los mismos";
 				
 		if(error != "")
