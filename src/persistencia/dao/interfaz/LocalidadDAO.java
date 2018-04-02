@@ -14,4 +14,6 @@ public interface LocalidadDAO {
 	public LocalidadDTO getById(LocalidadDTO localidad_a_obtener);
 
 	public List<LocalidadDTO> readAll();
+	
+	public LocalidadDTO getByName(LocalidadDTO localidad_a_obtener);
 }

@@ -14,4 +14,6 @@ public interface TipoContactoDAO {
 	public TipoContactoDTO getById(TipoContactoDTO tipoContacto_a_obtener);
 
 	public List<TipoContactoDTO> readAll();
+	
+	public TipoContactoDTO getByName(TipoContactoDTO tipoContacto_a_obtener);
 }

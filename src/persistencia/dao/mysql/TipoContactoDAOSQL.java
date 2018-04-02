@@ -16,6 +16,7 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 	private static final String delete = "DELETE FROM tiposContacto WHERE idTipoContacto = ?";
 	private static final String readall = "SELECT * FROM tiposContacto";
 	private static final String getById = "SELECT * FROM tiposContacto WHERE idTipoContacto = ?";
+	private static final String getByName = "SELECT * FROM tiposContacto WHERE nombre LIKE ?";
 	private static final String count = "SELECT COUNT(nombre) as cantidad FROM tiposContacto";
 	private static final Conexion conexion = Conexion.getConexion();
 
@@ -66,13 +67,32 @@ public class TipoContactoDAOSQL implements TipoContactoDAO {
 	}
 
 	@Override
-	public TipoContactoDTO getById(TipoContactoDTO tipoContacto_a_obtener) {
+	public TipoContactoDTO getById(TipoContactoDTO tipoContacto_a_obtener) 
+	{
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
 		TipoContactoDTO tipoContacto = null;
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(getById);
 			statement.setInt(1, tipoContacto_a_obtener.getIdTipoContacto());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"), resultSet.getString("nombre"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tipoContacto;
+	}
+	
+	public TipoContactoDTO getByName(TipoContactoDTO tipoContacto_a_obtener) 
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		TipoContactoDTO tipoContacto = null;
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(getByName);
+			statement.setString(1, tipoContacto_a_obtener.getNombre());
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"), resultSet.getString("nombre"));

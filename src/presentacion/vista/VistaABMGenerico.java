@@ -227,18 +227,34 @@ public class VistaABMGenerico implements ActionListener {
 		{
 			if(this.ventana.datosCorrectos())
 			{
+				String error = "";
 				if(this.tipoABM == ABM.Localidades)
 				{
+					LocalidadDAOSQL localidadDao = new LocalidadDAOSQL();
 					LocalidadDTO nuevaLocalidad = this.ventana.getDatosLocalidad();
-					new LocalidadDAOSQL().insert(nuevaLocalidad);
+					if(localidadDao.getByName(nuevaLocalidad) == null)
+						localidadDao.insert(nuevaLocalidad);
+					else
+						error = "Ya existe una localidad con ese nombre";
+						
 				}
 				else
 				{
+					TipoContactoDAOSQL tipoContactoDao = new TipoContactoDAOSQL();
 					TipoContactoDTO nuevoTipo = this.ventana.getDatosTipoContacto();
-					new TipoContactoDAOSQL().insert(nuevoTipo);
+					if(tipoContactoDao.getByName(nuevoTipo) == null)
+						tipoContactoDao.insert(nuevoTipo);
+					else
+						error = "Ya existe un Tipo de Contacto con ese nombre";
 				}
-				this.llenarTabla();
-				this.ventana.dispose();
+				
+				if(error == "")
+				{
+					this.llenarTabla();
+					this.ventana.dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(null, error, "Nombre Duplicado", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		

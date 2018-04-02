@@ -18,6 +18,7 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 	private static final String readall = "SELECT * FROM localidades";
 	private static final String getById = "SELECT * FROM localidades WHERE idLocalidad = ?";
 	private static final String count = "SELECT COUNT(nombre) as cantidad FROM localidades";
+	private static final String getByName = "SELECT * FROM localidades WHERE nombre LIKE ?";
 	private static final Conexion conexion = Conexion.getConexion();
 
 	public boolean update(LocalidadDTO localidad_a_editar) {
@@ -71,13 +72,32 @@ public class LocalidadDAOSQL implements LocalidadDAO {
 		
 	}
 
-	public LocalidadDTO getById(LocalidadDTO localidad_a_obtener) {
+	public LocalidadDTO getById(LocalidadDTO localidad_a_obtener) 
+	{
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
 		LocalidadDTO localidad = null;
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(getById);
 			statement.setInt(1, localidad_a_obtener.getIdLocalidad());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"), resultSet.getString("nombre"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return localidad;
+	}
+	
+	public LocalidadDTO getByName(LocalidadDTO localidad_a_obtener)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		LocalidadDTO localidad = null;
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(getByName);
+			statement.setString(1, localidad_a_obtener.getNombre());
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				localidad = new LocalidadDTO(resultSet.getInt("idLocalidad"), resultSet.getString("nombre"));
