@@ -41,7 +41,12 @@ public class Vista {
 		spPersonas.setBounds(10, 11, 760, 182);
 		panel.add(spPersonas);
 
-		modelPersonas = new DefaultTableModel(null, nombreColumnas);
+		modelPersonas = new DefaultTableModel(null, nombreColumnas) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		tablaPersonas = new JTable(modelPersonas);
 
 		tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(130);
@@ -82,11 +87,11 @@ public class Vista {
 		btnABMTiposContacto = new JButton("ABM Tipos de Contacto");
 		btnABMTiposContacto.setBounds(410, 228, 170, 23);
 		panel.add(btnABMTiposContacto);
-		
+
 		btnConexion = new JButton("Cambiar Servidor");
 		btnConexion.setBounds(600, 195, 170, 23);
 		panel.add(btnConexion);
-		
+
 		frame.setTitle("TP Inicial - AGENDA");
 	}
 
