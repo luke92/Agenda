@@ -62,7 +62,12 @@ public class VistaABMGenerico implements ActionListener {
 		sp.setBounds(10, 11, 300, 182);
 		panel.add(sp);
 
-		model = new DefaultTableModel(null, nombreColumnas);
+		model = new DefaultTableModel(null, nombreColumnas) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		tabla = new JTable(model);
 
 		tabla.getColumnModel().getColumn(0).setPreferredWidth(130);
