@@ -33,9 +33,8 @@ public class VistaABMGenerico implements ActionListener {
 	private String[] nombreColumnas = { "Descripcion" };
 	private Controlador controlador;
 	private ABM tipoABM;
-	
-	public VistaABMGenerico(Controlador padre, ABM abm) 
-	{
+
+	public VistaABMGenerico(Controlador padre, ABM abm) {
 		super();
 		this.tipoABM = abm;
 		initialize();
@@ -48,6 +47,7 @@ public class VistaABMGenerico implements ActionListener {
 		controlador = padre;
 	}
 
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 340, 300);
@@ -86,7 +86,7 @@ public class VistaABMGenerico implements ActionListener {
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(208, 228, 89, 23);
 		panel.add(btnBorrar);
-		
+
 		frame.setTitle("ABM " + this.tipoABM);
 	}
 
@@ -118,165 +118,143 @@ public class VistaABMGenerico implements ActionListener {
 		return nombreColumnas;
 	}
 
-	private void llenarTabla() 
-	{
+	private void llenarTabla() {
 		this.getModel().setRowCount(0); // Para vaciar la tabla
 		this.getModel().setColumnCount(0);
 		this.getModel().setColumnIdentifiers(this.getNombreColumnas());
-		
-		if(this.tipoABM == ABM.Localidades)
-		{
+
+		if (this.tipoABM == ABM.Localidades) {
 			this.localidades_en_tabla = new LocalidadDAOSQL().readAll();
-			for (int i = 0; i < this.localidades_en_tabla.size(); i++) 
-			{
+			for (int i = 0; i < this.localidades_en_tabla.size(); i++) {
 				Object[] fila = { this.localidades_en_tabla.get(i).getNombre() };
 				this.getModel().addRow(fila);
 			}
-		}
-		else
-		{
+		} else {
 			this.tiposContacto_en_tabla = new TipoContactoDAOSQL().readAll();
-			for (int i = 0; i < this.tiposContacto_en_tabla.size(); i++) 
-			{
+			for (int i = 0; i < this.tiposContacto_en_tabla.size(); i++) {
 				Object[] fila = { this.tiposContacto_en_tabla.get(i).getNombre() };
 				this.getModel().addRow(fila);
 			}
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) 
-	{
-		if (e.getSource() == this.getBtnAgregar()) 
-		{
-			if(this.tipoABM == ABM.Localidades)
-				this.ventana = new VentanaABMGenerico(this, Accion.Agregar, new LocalidadDTO(0,""));
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.getBtnAgregar()) {
+			if (this.tipoABM == ABM.Localidades)
+				this.ventana = new VentanaABMGenerico(this, Accion.Agregar, new LocalidadDTO(0, ""));
 			else
-				this.ventana = new VentanaABMGenerico(this, Accion.Agregar, new TipoContactoDTO(0,""));
-				
-		} 
-		
-		else if (e.getSource() == this.getBtnEditar()) 
-		{
+				this.ventana = new VentanaABMGenerico(this, Accion.Agregar, new TipoContactoDTO(0, ""));
+
+		}
+
+		else if (e.getSource() == this.getBtnEditar()) {
 			int[] filas_seleccionadas = this.getTabla().getSelectedRows();
-			if(this.tipoABM == ABM.Localidades)
-			{
-				if (filas_seleccionadas.length == 1) 
-				{
+			if (this.tipoABM == ABM.Localidades) {
+				if (filas_seleccionadas.length == 1) {
 					LocalidadDTO localidad_a_obtener = new LocalidadDAOSQL()
 							.getById(this.localidades_en_tabla.get(filas_seleccionadas[0]));
 					this.ventana = new VentanaABMGenerico(this, Accion.Editar, localidad_a_obtener);
-				}
-				else JOptionPane.showMessageDialog(null, "Seleccione una sola localidad");
-			}
-			else
-			{
-				if (filas_seleccionadas.length == 1) 
-				{
+				} else
+					JOptionPane.showMessageDialog(null, "Seleccione una sola localidad");
+			} else {
+				if (filas_seleccionadas.length == 1) {
 					TipoContactoDTO tipoContacto_a_obtener = new TipoContactoDAOSQL()
 							.getById(this.tiposContacto_en_tabla.get(filas_seleccionadas[0]));
 					this.ventana = new VentanaABMGenerico(this, Accion.Editar, tipoContacto_a_obtener);
-				}
-				else JOptionPane.showMessageDialog(null, "Seleccione un tipo de contacto");
-			}
-		} 
-		
-		else if (e.getSource() == this.getBtnBorrar()) 
-		{
-			int[] filas_seleccionadas = this.getTabla().getSelectedRows();
-			String mensajeConfirmar = "";
-			if(this.tipoABM == ABM.Localidades)
-			{
-				if(filas_seleccionadas.length > 0)
-				{
-					if(filas_seleccionadas.length == 1) mensajeConfirmar = "la localidad seleccionada?";
-					else mensajeConfirmar = "las localidades seleccionadas?";
-					int dialogResult = JOptionPane.showConfirmDialog (null, "Desea borrar " + mensajeConfirmar,"Aviso",JOptionPane.YES_NO_OPTION);
-					if(dialogResult == JOptionPane.YES_OPTION)
-					
-					for (int fila : filas_seleccionadas) 
-					{
-						boolean borrado = new LocalidadDAOSQL().delete(this.localidades_en_tabla.get(fila)); 
-						if(!borrado)
-						{
-							JOptionPane.showMessageDialog(null, "Hay al menos un contacto viviendo en " + this.localidades_en_tabla.get(fila).getNombre(), "No se pudo borrar la localidad", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-					this.llenarTabla();
-				}
-				else JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una localidad", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-			}
-			else
-			{
-				if(filas_seleccionadas.length > 0)
-				{
-					if(filas_seleccionadas.length == 1) mensajeConfirmar = "el tipo de contacto seleccionado?";
-					else mensajeConfirmar = "los tipos de contacto seleccionados?";
-					int dialogResult = JOptionPane.showConfirmDialog (null, "Desea borrar " + mensajeConfirmar,"Aviso",JOptionPane.YES_NO_OPTION);
-					if(dialogResult == JOptionPane.YES_OPTION)
-					
-					for (int fila : filas_seleccionadas) 
-					{
-						boolean borrado = new TipoContactoDAOSQL().delete(this.tiposContacto_en_tabla.get(fila)); 
-						if(!borrado)
-						{
-							JOptionPane.showMessageDialog(null, "Hay al menos un contacto catalogado como " + this.tiposContacto_en_tabla.get(fila).getNombre(), "No se pudo borrar el tipo de contacto", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-					this.llenarTabla();
-				}
-				else JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un tipo de contacto", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				} else
+					JOptionPane.showMessageDialog(null, "Seleccione un tipo de contacto");
 			}
 		}
-		
-		else if (e.getSource() == this.ventana.getBtnAgregarABM()) 
-		{
-			if(this.ventana.datosCorrectos())
-			{
+
+		else if (e.getSource() == this.getBtnBorrar()) {
+			int[] filas_seleccionadas = this.getTabla().getSelectedRows();
+			String mensajeConfirmar = "";
+			if (this.tipoABM == ABM.Localidades) {
+				if (filas_seleccionadas.length > 0) {
+					if (filas_seleccionadas.length == 1)
+						mensajeConfirmar = "la localidad seleccionada?";
+					else
+						mensajeConfirmar = "las localidades seleccionadas?";
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Desea borrar " + mensajeConfirmar, "Aviso",
+							JOptionPane.YES_NO_OPTION);
+					if (dialogResult == JOptionPane.YES_OPTION)
+
+						for (int fila : filas_seleccionadas) {
+							boolean borrado = new LocalidadDAOSQL().delete(this.localidades_en_tabla.get(fila));
+							if (!borrado) {
+								JOptionPane.showMessageDialog(null,
+										"Hay al menos un contacto viviendo en "
+												+ this.localidades_en_tabla.get(fila).getNombre(),
+										"No se pudo borrar la localidad", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					this.llenarTabla();
+				} else
+					JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una localidad", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				if (filas_seleccionadas.length > 0) {
+					if (filas_seleccionadas.length == 1)
+						mensajeConfirmar = "el tipo de contacto seleccionado?";
+					else
+						mensajeConfirmar = "los tipos de contacto seleccionados?";
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Desea borrar " + mensajeConfirmar, "Aviso",
+							JOptionPane.YES_NO_OPTION);
+					if (dialogResult == JOptionPane.YES_OPTION)
+
+						for (int fila : filas_seleccionadas) {
+							boolean borrado = new TipoContactoDAOSQL().delete(this.tiposContacto_en_tabla.get(fila));
+							if (!borrado) {
+								JOptionPane.showMessageDialog(null,
+										"Hay al menos un contacto catalogado como "
+												+ this.tiposContacto_en_tabla.get(fila).getNombre(),
+										"No se pudo borrar el tipo de contacto", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					this.llenarTabla();
+				} else
+					JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un tipo de contacto", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+
+		else if (e.getSource() == this.ventana.getBtnAgregarABM()) {
+			if (this.ventana.datosCorrectos()) {
 				String error = "";
-				if(this.tipoABM == ABM.Localidades)
-				{
+				if (this.tipoABM == ABM.Localidades) {
 					LocalidadDAOSQL localidadDao = new LocalidadDAOSQL();
 					LocalidadDTO nuevaLocalidad = this.ventana.getDatosLocalidad();
-					if(localidadDao.getByName(nuevaLocalidad) == null)
+					if (localidadDao.getByName(nuevaLocalidad) == null)
 						localidadDao.insert(nuevaLocalidad);
 					else
 						error = "Ya existe una localidad con ese nombre";
-						
-				}
-				else
-				{
+
+				} else {
 					TipoContactoDAOSQL tipoContactoDao = new TipoContactoDAOSQL();
 					TipoContactoDTO nuevoTipo = this.ventana.getDatosTipoContacto();
-					if(tipoContactoDao.getByName(nuevoTipo) == null)
+					if (tipoContactoDao.getByName(nuevoTipo) == null)
 						tipoContactoDao.insert(nuevoTipo);
 					else
 						error = "Ya existe un Tipo de Contacto con ese nombre";
 				}
-				
-				if(error == "")
-				{
+
+				if (error == "") {
 					this.llenarTabla();
 					this.ventana.dispose();
-				}
-				else
+				} else
 					JOptionPane.showMessageDialog(null, error, "Nombre Duplicado", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		
-		else if (e.getSource() == this.ventana.getBtnEditarABM()) 
-		{
-			if(this.ventana.datosCorrectos())
-			{	
-				if(this.tipoABM == ABM.Localidades)
-				{
+
+		else if (e.getSource() == this.ventana.getBtnEditarABM()) {
+			if (this.ventana.datosCorrectos()) {
+				if (this.tipoABM == ABM.Localidades) {
 					LocalidadDTO editarLocalidad = this.ventana.getDatosLocalidad();
 					new LocalidadDAOSQL().update(editarLocalidad);
-				}
-				else
-				{
+				} else {
 					TipoContactoDTO editarTipo = this.ventana.getDatosTipoContacto();
 					new TipoContactoDAOSQL().update(editarTipo);
-					
+
 				}
 				this.llenarTabla();
 				controlador.inicializar();

@@ -26,6 +26,7 @@ public class Vista {
 		initialize();
 	}
 
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 790, 300);
