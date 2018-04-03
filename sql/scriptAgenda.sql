@@ -32,3 +32,5 @@ CREATE TABLE `personas`
   FOREIGN KEY (`idTipoContacto`) REFERENCES `tiposContacto`(`idTipoContacto`),
   PRIMARY KEY (`idPersona`)
 );
+
+GRANT ALL ON *.* to root@'%' IDENTIFIED BY 'root';
