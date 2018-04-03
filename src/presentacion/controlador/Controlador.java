@@ -49,6 +49,7 @@ public class Controlador implements ActionListener {
 		this.ventanaConexion = null;
 		if(!Conexion.conexionEstablecida)
 		{
+			JOptionPane.showMessageDialog(null, "No se pudo establecer conexion con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
 			this.ventanaConexion = new VentanaConexion(this);
 		}
 		else
